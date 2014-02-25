@@ -1,6 +1,21 @@
 PHP Template Tutorial
 ========
 
+Uma das coisas que as pessoas mais me perguntam sobre PHP, é sobre o uso de Templates. Ou porque leram em algum livro ou fórum, ou seja porque eu comentei em aula.
+
+Através do uso de templates, deixamos toda a estrutura visual (HTML ou XML, CSS, etc) separado da lógica de programação (código PHP), o que melhora e muito tanto a construção quanto a manutenção de sistemas web.
+Existem vários mecanismo de template para PHP, e há um bom tempo no mercado. Mas qual indicar? Sem dúvida alguma, o Smarty é hoje o mais completo deles. Porém, o mais complexo, e de curva mais demorada. Ele é praticamente uma linguagem a parte do PHP.
+
+Com base nisso, eu resolvi colocar criar um tutorial baseado em um mecanismo de template muito mais simples. Ou seja: este não é um tutorial sobre o Smarty. É sobre Templates, mas baseado uma biblioteca que eu mesmo desenvolvi, e uso em meus projetos (mesmo nos maiores deles), na qual gastei bastante tempo desenvolvendo e melhorando, sempre com o foco principal na facilidade de uso.
+
+Mas quase todos os conceitos vistos neste tutorial se aplicam a maioria das classes de Template existentes em PHP, portanto, se você entender as idéias explicadas aqui, poderá usar seu mecanismo de Templates favorito.
+Para criar esta biblioteca (eu uso templates há muitos anos, quando só existia a PHPLib), eu estudei vários mecanismos de templates (PHPLib, Sigma, etc), portanto não estou "reinventando a roda", apenas "me apoiei no ombro de gigantes" para criar algo muito mais fácil de usar, que atendesse minhas necessidades e da empresa que eu trabalhava na época. De fato, atualmente muita gente usa esta biblioteca.
+
+Eu inclusive traduzi os comentários dos métodos/funções públicos para facilitar. Você verá que será preciso entender apenas duas idéias básicas: variáveis e blocos.
+
+Então, vamos lá.
+
+
 ## Histórico
 
 26/02/2008 - Versão inicial do Tutorial
