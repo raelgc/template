@@ -41,9 +41,10 @@ Então, vamos lá.
 
 ## Download
 
-Para baixar a biblioteca:
-- Use o git para clonar o repositório ou 
-- Baixe o [arquivo .zip](https://github.com/raelgc/template/archive/master.zip).
+Para baixar a biblioteca escolha entre:
+
+- Usar o git para clonar o repositório ou 
+- Baixar o [arquivo .zip](https://github.com/raelgc/template/archive/master.zip).
 
 ## API
 
