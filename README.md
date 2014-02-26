@@ -43,7 +43,7 @@ Então, vamos lá.
 
 Para baixar a biblioteca escolha entre:
 
-- Usar o git para clonar o repositório ou 
+- Usar o git para clonar o repositório (`git clone git@github.com:raelgc/template.git`) ou 
 - Baixar o [arquivo .zip](https://github.com/raelgc/template/archive/master.zip).
 
 ## API
@@ -67,7 +67,7 @@ Lembre-se apenas de ser uma pessoa legal e enviar de volta eventuais modificaç�
 
 2 - Você precisa criar uma pasta `lib` no seu projeto
 
-3 - Copie a pasta `raelgc` (e todo seu conteúdo) para dentro da pasta `lib` do seu projeto
+3 - Copie a pasta `raelgc` (e todo seu conteúdo) para dentro da pasta `lib` do seu projeto (pode descartar as pasta `doc`)
 
 4 - Use `require_once` para incluir a classe Template da seguinte forma:
 
