@@ -58,11 +58,13 @@ A licença desta biblioteca é regida pela licença LGPL. Ou seja, você pode ut
 
 Mais simples, impossível: apenas descompacte o arquivo, e o inclua no seu script PHP através da diretiva require:
 
-    <?php 
+``` php
+<?php 
 
     require("Template.class.php"); 
 
-    ?>
+?>
+```
 
 
 ## Exemplo e explicação: Olá Mundo
@@ -72,6 +74,7 @@ O funcionamento básico do mecanismo de templates é baseado na seguinte idéia:
 Dito isso, vamos ao primeiro exemplo, o já manjado Olá mundo. Vamos criar 2 arquivos: o PHP responsável por toda a lógica, e o arquivo HTML com nosso layout.
 
 Então, crie um arquivo HTML, chamado hello.html com o conteúdo abaixo:
+
 
     <html>
     <body>
@@ -83,7 +86,8 @@ Então, crie um arquivo HTML, chamado hello.html com o conteúdo abaixo:
     
 Agora, crie o arquivo PHP, hello.php:
 
-    <?php 
+``` php
+<?php 
 
     require("Template.class.php"); 
 
@@ -91,8 +95,9 @@ Agora, crie o arquivo PHP, hello.php:
      
     $tpl->show(); 
      
-    ?>
-    
+?>
+```
+
 Agora basta executar em seu navegador, o script hello.php, e verificar que ele irá exibir o conteúdo lido de hello.html.
 Se algo deu errado, consulte a seção sobre as Mensagens de Erro.
 
@@ -100,6 +105,7 @@ Se algo deu errado, consulte a seção sobre as Mensagens de Erro.
 ## Variáveis
 
 Vamos agora a um conceito importante: variáveis de template. Como você pode imaginar, vamos querer alterar várias partes do arquivo HTML. Como fazer isso? Simples: no lado do HTML, você cria as chamadas variáveis de template. Veja o exemplo abaixo:
+
 
     <html>
     <body>
@@ -115,7 +121,8 @@ Variáveis só podem contêr em seu nome: letras, números e underscore (_). O u
 
 Então, como ficaria o código PHP que atribui valor a ela? Vamos a ele:
 
-    <?php 
+``` php
+<?php 
 
     require("Template.class.php"); 
 
@@ -123,8 +130,9 @@ Então, como ficaria o código PHP que atribui valor a ela? Vamos a ele:
     $tpl->FULANO = "Rael"; 
     $tpl->show(); 
      
-    ?>
-    
+?>
+```
+ 
 Execute então novamente o script, e você verá que o código final gerado no navegador será:
 
     <html>
@@ -141,7 +149,8 @@ Outra coisa sobre variáveis: você pode repetir as variáveis de template (ou s
 
 Para ler o valor de uma variável, acesse do mesmo modo:
 
-    <?php 
+``` php
+<?php 
 
     require("Template.class.php"); 
 
@@ -155,8 +164,9 @@ Para ler o valor de uma variável, acesse do mesmo modo:
      
     $tpl->show(); 
      
-    ?>
-    
+?>
+```
+ 
 Repare que usando as variáveis de template, você pode continuar editando o arquivo HTML em seu editor favorito: as variáveis de template serão reconhecidas como um texto qualquer, e o arquivo HTML não ficará poluído de código PHP. O contrário também é verdade: seu arquivo PHP ficará limpo de código HTML.
 
 
@@ -166,7 +176,8 @@ Caso você queira atribuir valor pra uma variável de template, mas não tem cer
 
 Como é de se esperar, ele retorna true caso a variável exista. Caso não, retorna false:
 
-    <?php 
+``` php
+<?php 
 
     require("Template.class.php"); 
 
@@ -177,7 +188,8 @@ Como é de se esperar, ele retorna true caso a variável exista. Caso não, reto
      
     $tpl->show(); 
      
-    ?>
+?>
+```
 
 
 ## Blocos
@@ -211,7 +223,8 @@ As palavras BEGIN e END sempre devem ser maiúsculas. O nome do bloco deve conte
 
 E então, no lado PHP, vamos checar se os produtos existem. Caso sim, mostraremos o bloco BLOCK_QUANTIDADE. Caso não, vamos exibir o bloco BLOCK_VAZIO.
 
-    <?php 
+``` php
+<?php 
 
     require("Template.class.php"); 
 
@@ -234,8 +247,9 @@ E então, no lado PHP, vamos checar se os produtos existem. Caso sim, mostraremo
      
     $tpl->show(); 
      
-    ?>
-    
+?>
+```
+
 Como você pode reparar, blocos podem contêr variáveis de template. E blocos só são exibidos se no código PHP pedirmos isso, através do método block(). Caso contrário, o bloco não é exibido no conteúdo final gerado.
 
 Outro detalhe importante: ao contrário das variáveis de template, cada bloco deve ser único, ou seja, não podemos usar o mesmo nome para vários blocos.
@@ -268,7 +282,8 @@ Agora vamos a outro exemplo usando blocos: imagine que você precisa mostrar os 
 
 Repare que temos apenas uma linha de tabela HTML para os dados dos produtos, dentro de um bloco. Vamos então atribuir valor a estas variáveis, e ir duplicando o conteúdo do bloco conforme listamos os produtos:
 
-    <?php 
+``` php
+<?php 
 
     require("Template.class.php"); 
 
@@ -290,13 +305,15 @@ Repare que temos apenas uma linha de tabela HTML para os dados dos produtos, den
      
     $tpl->show(); 
      
-    ?>
-    
+?>
+```
+
 O comportamento padrão do método block() é manter o conteúdo anterior do bloco, somado (ou melhor, concatenado) ao novo conteúdo que acabamos de atribuir.
 
 No exemplo acima, os dados dos produtos vieram do array $produtos. Caso estes dados estivessem armazenados em um banco de dados, então bastaríamos fazer como no exemplo abaixo:
 
-    <?php 
+``` php
+<?php 
 
     require("Template.class.php"); 
 
@@ -316,7 +333,8 @@ No exemplo acima, os dados dos produtos vieram do array $produtos. Caso estes da
      
     $tpl->show(); 
      
-    ?>
+?>
+```
 
 
 ## Blocos aninhados
@@ -355,7 +373,8 @@ Vamos agora então juntar os 2 exemplos de uso de blocos que vimos: queremos mos
 
 E então, caso existam produtos, nós exibimos o bloco PRODUTOS. Caso contrário, exibimos o bloco VAZIO:
 
-    <?php 
+``` php
+<?php 
 
     require("Template.class.php"); 
 
@@ -386,8 +405,9 @@ E então, caso existam produtos, nós exibimos o bloco PRODUTOS. Caso contrário
      
     $tpl->show(); 
      
-    ?>
-    
+?>
+```
+
 Repare numa coisa muito importantes nesse exemplo: para que um bloco seja mostrado, é preciso que o bloco externo a ele também o seja. Senão, o bloco interno não é exibido. Podemos também criar quantos blocos aninhados acharmos necessário, desde que sigamos esse princípio: se quisermos que um deles seja mostrado, tanto ele quanto o bloco externo (se existir) devem ser exibidos.
 
 
@@ -413,7 +433,8 @@ Vamos então montar nossa página HTML com o elemento Select e os devidos Option
     
 Agora vamos ao respectivo arquivo PHP:
  
-    <?php
+``` php
+<?php
 
 	require_once("Template.class.php");
 
@@ -442,7 +463,8 @@ Agora vamos ao respectivo arquivo PHP:
 
 	$tpl->show();
 
-    ?>
+?>
+```
 
 Como resultado, o navegador exibirá o seguinte código:
 
@@ -527,7 +549,8 @@ Agora, vamos criar o arquivo que contém o "miolo" de nossa página HTML, o arqu
 
 No arquivo PHP então, usamos o método addFile(), onde informamos duas coisas: em qual variável do template o conteúdo do novo arquivo será jogado, e qual o caminho desse arquivo. Depois disso, basta usar as variáveis e blocos normalmente, independente de qual arquivo HTML eles estejam:
 
-    <?php 
+``` php
+<?php 
 
     require("Template.class.php"); 
 
@@ -563,14 +586,16 @@ No arquivo PHP então, usamos o método addFile(), onde informamos duas coisas: 
          
     $tpl->show(); 
      
-    ?>
+?>
+```
 
 
 ## Guardando o conteúdo do template
 
 Até agora exibimos o conteúdo gerado pelo template na tela, através do método show(). Mas, e quisermos fazer outro uso para esse conteúdo, como salvá-lo em arquivo ou outra coisa do tipo? Basta usarmos o método parse(), que gera o conteúdo final e o retorna:
 
-    <?php 
+``` php
+<?php 
 
     require("Template.class.php"); 
 
@@ -585,7 +610,8 @@ Até agora exibimos o conteúdo gerado pelo template na tela, através do métod
     // Salva em um arquivo 
     file_put_contents("arquivo.txt", $conteudo); 
      
-    ?>
+?>
+```
 
 
 ## Usando Objetos
@@ -598,6 +624,7 @@ Para que os exemplos fiquem mais claros, vamos trabalhar com uma suposta página
 
 Temos uma classe PHP chamada Produto, que representa a tabela produtos do banco de dados, com o seguinte código (bem rudimentar e sem métodos para salvar/atualizar os dados):
 
+``` php
 <?php 
 
     class Produto { 
@@ -648,11 +675,13 @@ Temos uma classe PHP chamada Produto, que representa a tabela produtos do banco 
 
     } 
 
-    ?>
+?>
+```
     
 Usando a classe acima, esta é a forma como estamos fazendo até agora para montar uma página PHP que exibe os dados do produto:
 
-    <?php 
+``` php
+<?php 
 
     require("Template.class.php"); 
     $tpl = new Template("produtos.html"); 
@@ -666,8 +695,9 @@ Usando a classe acima, esta é a forma como estamos fazendo até agora para mont
 
     $tpl->show(); 
 
-    ?>
-    
+?>
+```
+ 
 Agora o respectivo arquivo HTML:
  
     Nome: {NAME} <br/>
@@ -677,7 +707,8 @@ Agora o respectivo arquivo HTML:
 
 Vamos então modificar o arquivo PHP para usar o suporte a objetos de Template:
 
-    <?php 
+``` php
+<?php 
 
     require("Template.class.php"); 
     $tpl = new Template("produtos.html"); 
@@ -687,8 +718,9 @@ Vamos então modificar o arquivo PHP para usar o suporte a objetos de Template:
 
     $tpl->show(); 
 
-    ?>
-    
+?>
+```
+
 O arquivo HTML também deve ser modificado pra exibir as propriedades de Produto:
 
     Nome: {P->NAME} <br/>
@@ -761,7 +793,8 @@ Se você for exibir o conteúdo no navegador ao invés de salvá-lo num arquivo,
 
 Faça isso com a instrução header() do PHP:
 
-    <?php 
+``` php
+<?php 
 
     require("Template.class.php"); 
 
@@ -779,7 +812,8 @@ Faça isso com a instrução header() do PHP:
      
     $tpl->show(); 
      
-    ?>
+?>
+```
 
 
 ## Gerenciando erros
@@ -792,7 +826,8 @@ Com as exceptions, temos duas vantagens: a primeira é ver todo o stack do erro,
 
 A segunda vantagem é poder gerenciar o erro, se desejarmos, e fazermos com que a execução de nosso script não seja interrompida, através do uso de try/catch:
 
-    <?php 
+``` php
+<?php 
 
     require("Template.class.php"); 
     $tpl = new Template("index.html"); 
@@ -811,7 +846,8 @@ A segunda vantagem é poder gerenciar o erro, se desejarmos, e fazermos com que 
 
     $tpl->show(); 
 
-    ?>
+?>
+```
 
 
 ## Variáveis Dinâmicas
@@ -828,7 +864,8 @@ Imagine um caso onde você tem várias variáveis de template em seu arquivo HTM
     
 Repare que no arquivo HTML não há nada de diferente. No arquivo PHP então, basta usar chaves:
 
-    <?php 
+``` php
+<?php 
 
     require("Template.class.php"); 
 
@@ -842,7 +879,8 @@ Repare que no arquivo HTML não há nada de diferente. No arquivo PHP então, ba
 
     $tpl->show(); 
      
-    ?>
+?>
+```
 
 
 ## Mensagens de Erro
@@ -882,7 +920,8 @@ Um efeito colateral do bom desempenho desta biblioteca: se você pedir para seu 
 
 Como uma tabulação no código fonte não traz efeito algum para o conteúdo HTML final, o comportamento padrão da classe Template é ignorar estas tabulações de início de bloco, deixando elas no código final. O único caso em que isso pode ser um problema é quando você precisa de uma reprodução fiel dos seus arquivos HTML, como no uso das tags `<pre>` e `<code>`. Já prevendo isso, existe um segundo parâmetro (opcional) usado na declaração do objeto Template: o parâmetro $accurate. Se você usar ele com o valor true, então seu código final HTML será uma reprodução fiel dos arquivos HTML usados no Template (com a devida penalidade em performance):
 
-    <?php 
+``` php
+<?php 
 
     require("Template.class.php"); 
 
@@ -893,8 +932,8 @@ Como uma tabulação no código fonte não traz efeito algum para o conteúdo HT
      
     $tpl->show(); 
      
-    ?>
-
+?>
+```
 
 ## Conclusão
 
