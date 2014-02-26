@@ -36,32 +36,44 @@ Então, vamos lá.
 
 25/02/2014 - Movendo para o Github
 
+26/02/2014 - Versão 2.0: suporte a namespace, blocos finally, parser automático de blocos pai, modificadores
 
-## Download, Documentação e Licença
 
-Para baixar o código fonte, escolha entre a versão com comentários e mensagens de erro em português ou inglês:
-- Download Template (português)
-- Download Template (english)
+## Download
 
-Para ver a documentação dos métodos (API), clique no link do idioma desejado:
-- Ver API (português)
-- Ver API (english)
+Para baixar a biblioteca:
+- Use o git para clonar o repositório ou 
+- Baixe o [arquivo .zip](https://github.com/raelgc/template/archive/master.zip).
 
-A licença desta biblioteca é regida pela licença LGPL. Ou seja, você pode utilizá-la, como biblioteca, mesmo em projetos comerciais. Lembre-se apenas de ser uma pessoa legal e enviar de volta eventuais modificações, correções ou melhorias.
+## API
+
+A documentação dos métodos (API), estará na pasta `doc`, arquivo `api.html`.
+
+## Licença
+
+A licença desta biblioteca é regida pela licença LGPL. Ou seja, você pode utilizá-la, como biblioteca, mesmo em projetos comerciais.
+
+Lembre-se apenas de ser uma pessoa legal e enviar de volta eventuais modificações, correções ou melhorias.
 
 
 ## Requisitos Necessários
-É preciso usar qualquer versão do PHP igual ou superior a 5. Versões 4 não são suportadas.
+É preciso usar qualquer versão do PHP igual ou superior a 5.3.
 
 
-## Instalação
+## Instalação e Uso
 
-Mais simples, impossível: apenas descompacte o arquivo, e o inclua no seu script PHP através da diretiva require:
+1 - Descompacte o arquivo .zip
+
+2 - Você precisa criar uma pasta `lib` no seu projeto
+
+3 - Copie a pasta `raelgc` (e todo seu conteúdo) para dentro da pasta `lib` do seu projeto
+
+4 - Use `require_once` para incluir a classe Template da seguinte forma:
 
 ``` php
 <?php 
 
-    require("Template.class.php"); 
+    require_once("lib/raelgc/view/Template.php");
 
 ?>
 ```
@@ -89,16 +101,17 @@ Agora, crie o arquivo PHP, hello.php:
 ``` php
 <?php 
 
-    require("Template.class.php"); 
+    require_once("lib/raelgc/view/Template.php");
 
-    $tpl = new Template("hello.html"); 
+    $tpl = new Template("hello.html");
      
-    $tpl->show(); 
+    $tpl->show();
      
 ?>
 ```
 
 Agora basta executar em seu navegador, o script hello.php, e verificar que ele irá exibir o conteúdo lido de hello.html.
+
 Se algo deu errado, consulte a seção sobre as Mensagens de Erro.
 
 
@@ -124,11 +137,11 @@ Então, como ficaria o código PHP que atribui valor a ela? Vamos a ele:
 ``` php
 <?php 
 
-    require("Template.class.php"); 
+    require_once("lib/raelgc/view/Template.php");
 
-    $tpl = new Template("hello.html"); 
-    $tpl->FULANO = "Rael"; 
-    $tpl->show(); 
+    $tpl = new Template("hello.html");
+    $tpl->FULANO = "Rael";
+    $tpl->show();
      
 ?>
 ```
@@ -152,17 +165,17 @@ Para ler o valor de uma variável, acesse do mesmo modo:
 ``` php
 <?php 
 
-    require("Template.class.php"); 
+    require_once("lib/raelgc/view/Template.php");
 
-    $tpl = new Template("hello.html"); 
+    $tpl = new Template("hello.html");
      
     // Atribuindo valor 
-    $tpl->FULANO = "Rael"; 
+    $tpl->FULANO = "Rael";
      
     // Imprimindo o valor da variável 
-    die("Valor de FULANO: ".$tpl->FULANO); 
+    die("Valor de FULANO: ".$tpl->FULANO);
      
-    $tpl->show(); 
+    $tpl->show();
      
 ?>
 ```
@@ -179,18 +192,63 @@ Como é de se esperar, ele retorna true caso a variável exista. Caso não, reto
 ``` php
 <?php 
 
-    require("Template.class.php"); 
+    require_once("lib/raelgc/view/Template.php");
 
-    $tpl = new Template("layout.html"); 
+    $tpl = new Template("layout.html");
      
     // Checando existência da variável antes da atribuição 
-    if($tpl->exists("FULANO")) $tpl->FULANO = "Rael"; 
+    if($tpl->exists("FULANO")) $tpl->FULANO = "Rael";
      
-    $tpl->show(); 
+    $tpl->show();
      
 ?>
 ```
 
+## Variáveis com Modificadores
+
+É possível, dentro do arquivo HTML, chamarmos algumas funções do PHP, desde que elas atendam as duas condições:
+
+- A função tem que sempre retornar um valor;
+- A função deve ter sempre como primeiro parâmetro uma string;
+
+Vamos supor o seguinte arquivo PHP, que atribui as variáveis de template NOME e VALOR:
+
+``` php
+<?php
+
+	require_once("lib/raelgc/view/Template.php");
+
+	use raelgc\view\Template;
+   
+    $tpl = new Template("modificadores.html");
+	
+	$tpl->NOME = 'Fulano Ciclano da Silva';
+	
+	$tpl->VALOR = 100;
+     
+    $tpl->show();
+
+?>
+```
+
+E o seguinte HTML, já fazendo uso dos modificadores:
+
+	<html>
+	<head>
+		<title>Exemplo - Modificadores</title>
+		<meta charset="UTF-8">
+	</head>
+	<body>
+		<div>Nome: {NOME|replace:Fulano:Rael}</div>
+		<div>Valor: R$ {VALOR|str_pad:5:0:0},00</div>
+	</body>
+	</html>
+
+Explicando: a linha `{NOME|replace:Fulano:Rael}` equivale a chamar no PHP `replace('Fulano Ciclano da Silva', 'Fulano', 'Rael')`.
+
+E essa função `replace`? É uma função declarada dentro da classe Template, que basicamente faz a mesma coisa que a função do PHP [`str_replace`](php.net/manual/pt_BR/function.str-replace.php) (substitui um texto por outro). A diferença é que ela recebe uma string como primeiro parâmetro. Lembre que essa é uma das condições para uma função poder ser usada dentro do HTML.
+
+Já no segundo exemplo, usamos a função interna do PHP, [`str_pad`](php.net/manual/pt_BR/function.str-pad.php) (já que ela já recebe como primeiro parâmetro uma string, não precisamos criar uma nova função). Neste caso, estamos usando ela para adicionar zeros à esquerda do valor, para que o valor sempre tenha 5 dígitos (e quando não tiver, que esses dígitos sejam completados com zero). Veja a [documentação desta função](php.net/manual/pt_BR/function.str-pad.php) para maiores esclarecimentos.
 
 ## Blocos
 
@@ -226,26 +284,26 @@ E então, no lado PHP, vamos checar se os produtos existem. Caso sim, mostraremo
 ``` php
 <?php 
 
-    require("Template.class.php"); 
+    require_once("lib/raelgc/view/Template.php");
 
-    $tpl = new Template("hello.html"); 
+    $tpl = new Template("hello.html");
      
     // Vamos supor que esta quantidade veio do banco de dados 
-    $quantidade = 5; 
+    $quantidade = 5;
      
     // Se existem produtos cadastrados, vamos exibir a quantidade 
     if($quantidade > 0){ 
-        $tpl->QUANTIDADE = $quantidade; 
-        $tpl->block("BLOCK_QUANTIDADE"); 
+        $tpl->QUANTIDADE = $quantidade;
+        $tpl->block("BLOCK_QUANTIDADE");
     } 
      
     // Caso não exista nenhum produto, exibimos a mensagem de vazio 
     else { 
-        $tpl->block("BLOCK_VAZIO"); 
+        $tpl->block("BLOCK_VAZIO");
     } 
      
      
-    $tpl->show(); 
+    $tpl->show();
      
 ?>
 ```
@@ -285,25 +343,25 @@ Repare que temos apenas uma linha de tabela HTML para os dados dos produtos, den
 ``` php
 <?php 
 
-    require("Template.class.php"); 
+    require_once("lib/raelgc/view/Template.php");
 
-    $tpl = new Template("hello.html"); 
+    $tpl = new Template("hello.html");
      
     // Simulando produtos cadastrados no banco de dados 
     $produtos = array( 
         array("nome" => "Sabão em Pó", "quantidade" => 15), 
         array("nome" => "Escova de Dente", "quantidade" => 53), 
         array("nome" => "Creme Dental", "quantidade" => 37) 
-    ); 
+    );
 
     // Listando os produtos 
     foreach($produtos as $p){ 
-        $tpl->NOME = $p["nome"]; 
-        $tpl->QUANTIDADE = $p["quantidade"]; 
-        $tpl->block("BLOCK_PRODUTO"); 
+        $tpl->NOME = $p["nome"];
+        $tpl->QUANTIDADE = $p["quantidade"];
+        $tpl->block("BLOCK_PRODUTO");
     } 
      
-    $tpl->show(); 
+    $tpl->show();
      
 ?>
 ```
@@ -315,23 +373,23 @@ No exemplo acima, os dados dos produtos vieram do array $produtos. Caso estes da
 ``` php
 <?php 
 
-    require("Template.class.php"); 
+    require_once("lib/raelgc/view/Template.php");
 
-    $tpl = new Template("hello.html"); 
+    $tpl = new Template("hello.html");
      
     // ... Conectar ao banco, selecionar database, etc 
      
     // Produtos da database 
-    $result = mysql_query("SELECT nome, quantidade FROM produtos"); 
+    $result = mysql_query("SELECT nome, quantidade FROM produtos");
 
     // Listando os produtos 
     while($linha = mysql_fetch_array($result)){ 
-        $tpl->NOME = $linha["nome"]; 
-        $tpl->QUANTIDADE = $linha["quantidade"]; 
-        $tpl->block("BLOCK_PRODUTO"); 
+        $tpl->NOME = $linha["nome"];
+        $tpl->QUANTIDADE = $linha["quantidade"];
+        $tpl->block("BLOCK_PRODUTO");
     } 
      
-    $tpl->show(); 
+    $tpl->show();
      
 ?>
 ```
@@ -376,39 +434,111 @@ E então, caso existam produtos, nós exibimos o bloco PRODUTOS. Caso contrário
 ``` php
 <?php 
 
-    require("Template.class.php"); 
+    require_once("lib/raelgc/view/Template.php");
 
-    $tpl = new Template("hello.html"); 
+    $tpl = new Template("hello.html");
      
     // Produtos cadastrados 
     $produtos = array( 
         array("nome" => "Sabão em Pó", "quantidade" => 15), 
         array("nome" => "Escova de Dente", "quantidade" => 53), 
         array("nome" => "Creme Dental", "quantidade" => 37) 
-    ); 
+    );
 
     // Listando os produtos 
     foreach($produtos as $p){ 
-        $tpl->NOME = $p["nome"]; 
-        $tpl->QUANTIDADE = $p["quantidade"]; 
-        $tpl->block("BLOCK_DADOS"); 
+        $tpl->NOME = $p["nome"];
+        $tpl->QUANTIDADE = $p["quantidade"];
+        $tpl->block("BLOCK_DADOS");
     } 
      
     // Se existem produtos, então mostramos o bloco com os dados de todos 
     if(isset($produtos) && is_array($produtos) && sizeof($produtos) > 0){ 
-        $tpl->block("BLOCK_PRODUTOS"); 
+        $tpl->block("BLOCK_PRODUTOS");
     } 
     // Senão, mostramos o bloco com o aviso de nenhum cadastrado 
     else { 
-        $tpl->block("BLOCK_VAZIO"); 
+        $tpl->block("BLOCK_VAZIO");
     } 
      
-    $tpl->show(); 
+    $tpl->show();
      
 ?>
 ```
 
-Repare numa coisa muito importantes nesse exemplo: para que um bloco seja mostrado, é preciso que o bloco externo a ele também o seja. Senão, o bloco interno não é exibido. Podemos também criar quantos blocos aninhados acharmos necessário, desde que sigamos esse princípio: se quisermos que um deles seja mostrado, tanto ele quanto o bloco externo (se existir) devem ser exibidos.
+Um detalhe muito importante desta nova versão da biblioteca (versão 2.0 em diante) em relação a sua antecessora: agora, se um bloco aninhado é exibido, todos os blocos pais serão automaticamente exibidos.
+
+## Blocos FINALLY
+
+No exemplo anterior, usamos o BLOCK_PRODUTOS para exibir os produtos, e caso não existam produtos, usamos o BLOCK_VAZIO para exibir uma mensagem amigável de que não existem produtos cadastrados.
+
+Podemos fazer isso de forma mais automática: usandos os blocos FINALLY.
+
+Veja como ficaria o arquivo HTML neste caso:
+
+    <html>
+    <body>
+
+      <p>Produtos cadastrados no sistema:</p>
+
+
+      <!-- BEGIN BLOCK_PRODUTOS -->
+      <table border=1>
+
+        <tr><td>Nome</td><td>Quantidade</td></tr>
+
+
+        <!-- BEGIN BLOCK_DADOS -->
+        <tr>
+          <td> {NOME} </td>
+          <td> {QUANTIDADE} </td>
+        </tr>
+        <!-- END BLOCK_DADOS -->
+
+      </table>
+      <!-- END BLOCK_PRODUTOS -->
+
+      <div class=vazio>Nenhum registro encontrado.</div>
+
+      <!-- FINALLY BLOCK_PRODUTOS -->
+
+    </body>
+
+    </html>
+
+E o arquivo PHP? Bem, ele vai ficar mais simples ainda:
+
+``` php
+<?php 
+
+    require_once("lib/raelgc/view/Template.php");
+
+    $tpl = new Template("hello.html");
+     
+    // Produtos cadastrados 
+    $produtos = array( 
+        array("nome" => "Sabão em Pó", "quantidade" => 15), 
+        array("nome" => "Escova de Dente", "quantidade" => 53), 
+        array("nome" => "Creme Dental", "quantidade" => 37) 
+    );
+
+    // Listando os produtos 
+    foreach($produtos as $p){ 
+        $tpl->NOME = $p["nome"];
+        $tpl->QUANTIDADE = $p["quantidade"];
+        $tpl->block("BLOCK_DADOS");
+    } 
+     
+    $tpl->show();
+     
+?>
+```
+
+Primeiro detalhe importante: o bloco FINALLY nunca precisa ser invocado no arquivo PHP. Caso ele exista no HTML, ele sempre será chamado se o bloco relacionado não for exibido.
+
+Ou seja, se não houverem produtos, o bloco FINALLY exibirá automaticamente o aviso de que não exitem registros encontrados. Prático, né?
+
+E segundo detalhe: no arquivo PHP, o bloco BLOCK_PRODUTOS nem foi chamado. Mas como o bloco mais interno, BLOCK_DADOS, foi chamado, o bloco pai automaticamente será mostrado.
 
 
 ## Blocos com HTML Select
@@ -436,7 +566,7 @@ Agora vamos ao respectivo arquivo PHP:
 ``` php
 <?php
 
-	require_once("Template.class.php");
+	require_once("lib/raelgc/view/Template.php");
 
 	$tpl = new Template("index.html");
 
@@ -542,9 +672,9 @@ Agora, vamos criar o arquivo que contém o "miolo" de nossa página HTML, o arqu
     </table>
     <!-- END BLOCK_PRODUTOS -->
 
-    <!-- BEGIN BLOCK_VAZIO -->
     <div class=vazio>Nenhum registro encontrado.</div>
-    <!-- END BLOCK_VAZIO -->
+
+    <!-- FINALLY BLOCK_PRODUTOS -->
 
 
 No arquivo PHP então, usamos o método addFile(), onde informamos duas coisas: em qual variável do template o conteúdo do novo arquivo será jogado, e qual o caminho desse arquivo. Depois disso, basta usar as variáveis e blocos normalmente, independente de qual arquivo HTML eles estejam:
@@ -552,39 +682,30 @@ No arquivo PHP então, usamos o método addFile(), onde informamos duas coisas: 
 ``` php
 <?php 
 
-    require("Template.class.php"); 
+    require_once("lib/raelgc/view/Template.php");
 
-    $tpl = new Template("base.html"); 
+    $tpl = new Template("base.html");
 
     // Adicionando mais um arquivo HTML 
-    $tpl->addFile("CONTEUDO", "miolo.html"); 
+    $tpl->addFile("CONTEUDO", "miolo.html");
      
-    $tpl->FULANO = "Rael"; 
+    $tpl->FULANO = "Rael";
      
     // Produtos cadastrados 
     $produtos = array( 
         array("nome" => "Sabão em Pó", "quantidade" => 15), 
         array("nome" => "Escova de Dente", "quantidade" => 53), 
         array("nome" => "Creme Dental", "quantidade" => 37) 
-    ); 
+    );
 
     // Listando os produtos 
     foreach($produtos as $p){ 
-        $tpl->NOME = $p["nome"]; 
-        $tpl->QUANTIDADE = $p["quantidade"]; 
-        $tpl->block("BLOCK_DADOS"); 
+        $tpl->NOME = $p["nome"];
+        $tpl->QUANTIDADE = $p["quantidade"];
+        $tpl->block("BLOCK_DADOS");
     } 
      
-    // Se existem produtos, então mostramos o bloco com os dados de todos 
-    if(isset($produtos) && is_array($produtos) && sizeof($produtos) > 0){ 
-        $tpl->block("BLOCK_PRODUTOS"); 
-    } 
-    // Senão, mostramos o bloco com o aviso de nenhum cadastrado 
-    else { 
-        $tpl->block("BLOCK_VAZIO"); 
-    } 
-         
-    $tpl->show(); 
+    $tpl->show();
      
 ?>
 ```
@@ -597,18 +718,18 @@ Até agora exibimos o conteúdo gerado pelo template na tela, através do métod
 ``` php
 <?php 
 
-    require("Template.class.php"); 
+    require_once("lib/raelgc/view/Template.php");
 
-    $tpl = new Template("base.html"); 
-    $tpl->addFile("CONTEUDO", "miolo.html"); 
+    $tpl = new Template("base.html");
+    $tpl->addFile("CONTEUDO", "miolo.html");
      
     // Variáveis, blocos, etc 
-    $tpl->FULANO = "Rael"; 
+    $tpl->FULANO = "Rael";
      
     // Pega o conteúdo final do template 
-    $conteudo = $tpl->parse(); 
+    $conteudo = $tpl->parse();
     // Salva em um arquivo 
-    file_put_contents("arquivo.txt", $conteudo); 
+    file_put_contents("arquivo.txt", $conteudo);
      
 ?>
 ```
@@ -629,48 +750,48 @@ Temos uma classe PHP chamada Produto, que representa a tabela produtos do banco 
 
     class Produto { 
 
-        protected $id = 0; 
-        protected $name; 
-        protected $price = 0.0; 
+        protected $id = 0;
+        protected $name;
+        protected $price = 0.0;
 
         public function __construct($id = 0){ 
-            if(0!=$id) $this->loadById($id); 
+            if(0!=$id) $this->loadById($id);
         } 
 
         public function loadById($id){ 
-            $db = new PDO('mysql:host=localhost;dbname=database', 'usuario', 'senha'); 
-            $result = $db->query("SELECT * FROM produtos WHERE id = ".intval($id)); 
+            $db = new PDO('mysql:host=localhost;dbname=database', 'usuario', 'senha');
+            $result = $db->query("SELECT * FROM produtos WHERE id = ".intval($id));
             if($row = $result->fetch()){ 
-                $this->setId($row['id']); 
-                $this->setName($row['nome']); 
-                $this->setPrice($row['preco']); 
-                return true; 
+                $this->setId($row['id']);
+                $this->setName($row['nome']);
+                $this->setPrice($row['preco']);
+                return true;
             } 
-            return false; 
+            return false;
         } 
 
         public function getId(){ 
-            return $this->id; 
+            return $this->id;
         } 
 
         public function setId($id){ 
-            $this->id = intval($id); 
+            $this->id = intval($id);
         } 
 
         public function getName(){ 
-            return $this->name; 
+            return $this->name;
         } 
 
         public function setName($name){ 
-            $this->name = $name; 
+            $this->name = $name;
         } 
 
         public function getPrice(){ 
-            return $this->price; 
+            return $this->price;
         } 
 
         public function setPrice($price){ 
-            $this->price = floatval($price); 
+            $this->price = floatval($price);
         } 
 
     } 
@@ -683,17 +804,17 @@ Usando a classe acima, esta é a forma como estamos fazendo até agora para mont
 ``` php
 <?php 
 
-    require("Template.class.php"); 
-    $tpl = new Template("produtos.html"); 
+    require_once("lib/raelgc/view/Template.php");
+    $tpl = new Template("produtos.html");
 
     // Id do produto vem por GET 
-    $p = new Produto($_GET['id']); 
+    $p = new Produto($_GET['id']);
 
-    $tpl->NAME = $p->getName(); 
-    $tpl->ID = $p->getId(); 
-    $tpl->PRICE = $p->getPrice(); 
+    $tpl->NAME = $p->getName();
+    $tpl->ID = $p->getId();
+    $tpl->PRICE = $p->getPrice();
 
-    $tpl->show(); 
+    $tpl->show();
 
 ?>
 ```
@@ -710,13 +831,13 @@ Vamos então modificar o arquivo PHP para usar o suporte a objetos de Template:
 ``` php
 <?php 
 
-    require("Template.class.php"); 
-    $tpl = new Template("produtos.html"); 
+    require_once("lib/raelgc/view/Template.php");
+    $tpl = new Template("produtos.html");
 
     // Id do produto vem por GET 
-    $tpl->P = new Produto($_GET['id']); 
+    $tpl->P = new Produto($_GET['id']);
 
-    $tpl->show(); 
+    $tpl->show();
 
 ?>
 ```
@@ -737,7 +858,7 @@ A classe Template também entende a existência do método __toString().
 
 ## Comentários
 
-A partir da versão 1.8 (veja no código fonte da classe o número da versão), a classe Template, a exemplo das linguagens de programação, suporta comentários de Template no HTML. Comentários são úteis para várias coisas, entre elas, identificar o autor do HTML, versão, incluir licenças, etc.
+A exemplo das linguagens de programação, a classe Template suporta comentários no HTML. Comentários são úteis para várias coisas, entre elas, identificar o autor do HTML, versão, incluir licenças, etc.
 
 Diferentemente dos comentários HTML, que são exibidos no código fonte da página, os comentários da classe Template são extraídos do HTML final. Na verdade os comentários de Template são extraídos antes mesmo de qualquer processamento, e tudo que estiver entre os comentários será ignorado.
 
@@ -770,10 +891,9 @@ Veja o exemplo abaixo:
     </table>
     <!-- END BLOCK_PRODUTOS -->
 
-    <!-- BEGIN BLOCK_VAZIO -->
     <div class=vazio>Nenhum registro encontrado.</div>
-    <!-- END BLOCK_VAZIO -->
 
+    <!-- FINALLY BLOCK_PRODUTOS -->
 
 ## Criando XML, CSV e outros
 
@@ -796,21 +916,21 @@ Faça isso com a instrução header() do PHP:
 ``` php
 <?php 
 
-    require("Template.class.php"); 
+    require_once("lib/raelgc/view/Template.php");
 
     // Forçando o cabeçalho para o formato escolhido do Office 
-    header('Content-type: application/msword'); 
-    header('Content-Disposition: attachment; filename="Relatorio.doc"'); 
-    header("Pragma: no-cache"); 
-    header("Expires: 0"); 
+    header('Content-type: application/msword');
+    header('Content-Disposition: attachment;filename="Relatorio.doc"');
+    header("Pragma: no-cache");
+    header("Expires: 0");
      
     // Arquivo relatorio.html, gerado no Word 
-    $tpl = new Template("relatorio.html"); 
+    $tpl = new Template("relatorio.html");
      
     // Variáveis, blocos, etc 
-    $tpl->FULANO = "Rael"; 
+    $tpl->FULANO = "Rael";
      
-    $tpl->show(); 
+    $tpl->show();
      
 ?>
 ```
@@ -829,22 +949,22 @@ A segunda vantagem é poder gerenciar o erro, se desejarmos, e fazermos com que 
 ``` php
 <?php 
 
-    require("Template.class.php"); 
-    $tpl = new Template("index.html"); 
+    require_once("lib/raelgc/view/Template.php");
+    $tpl = new Template("index.html");
 
     // Tentando acessar variável que não existe 
     try { 
          
-        $tpl->FOO = "bar"; 
+        $tpl->FOO = "bar";
 
     // Capturando erro e evitando que o script seja interrompido 
     } catch (Exception $e){ 
          
-        echo "FOO não existe!"; 
+        echo "FOO não existe!";
          
     } 
 
-    $tpl->show(); 
+    $tpl->show();
 
 ?>
 ```
@@ -867,17 +987,17 @@ Repare que no arquivo HTML não há nada de diferente. No arquivo PHP então, ba
 ``` php
 <?php 
 
-    require("Template.class.php"); 
+    require_once("lib/raelgc/view/Template.php");
 
-    $tpl = new Template("base.html"); 
+    $tpl = new Template("base.html");
      
     // Nome da variável  
-    $varname = "fulano"; 
+    $varname = "fulano";
      
     // Variável definida dinamicamente 
-    $tpl->{"NOME_".strtoupper($varname)} = "Rael"; 
+    $tpl->{"NOME_".strtoupper($varname)} = "Rael";
 
-    $tpl->show(); 
+    $tpl->show();
      
 ?>
 ```
@@ -923,14 +1043,14 @@ Como uma tabulação no código fonte não traz efeito algum para o conteúdo HT
 ``` php
 <?php 
 
-    require("Template.class.php"); 
+    require_once("lib/raelgc/view/Template.php");
 
     // Parâmetro $accurate com valor TRUE 
-    $tpl = new Template("base.html", true); 
+    $tpl = new Template("base.html", true);
      
     // ... 
      
-    $tpl->show(); 
+    $tpl->show();
      
 ?>
 ```
