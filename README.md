@@ -74,11 +74,11 @@ Dito isso, vamos ao primeiro exemplo, o já manjado Olá mundo. Vamos criar 2 ar
 Então, crie um arquivo HTML, chamado hello.html com o conteúdo abaixo:
 
     <html>
-      <body>
+    <body>
 
       Olá Mundo, com templates PHP!
 
-      </body>
+    </body>
     </html>
     
 Agora, crie o arquivo PHP, hello.php:
@@ -397,8 +397,8 @@ Uma das dúvidas mais comuns é: como usar a classe Template com o elemento Sele
 
 Vamos então montar nossa página HTML com o elemento Select e os devidos Options, representando cidades de uma lista:
 
-<html>
-<body>
+    <html>
+    <body>
 
 	<select name="cidades">
 
@@ -408,11 +408,12 @@ Vamos então montar nossa página HTML com o elemento Select e os devidos Option
 
 	</select>
 
-</body>
-</html>
+    </body>
+    </html>
+    
 Agora vamos ao respectivo arquivo PHP:
  
-<?php
+    <?php
 
 	require_once("Template.class.php");
 
@@ -441,11 +442,12 @@ Agora vamos ao respectivo arquivo PHP:
 
 	$tpl->show();
 
-?>
+    ?>
 
 Como resultado, o navegador exibirá o seguinte código:
- <html>
-<body>
+
+    <html>
+    <body>
 
 	<select name="cidades">
 
@@ -455,11 +457,13 @@ Como resultado, o navegador exibirá o seguinte código:
 
 	</select>
 
-</body>
-</html>
+    </body>
+    </html>
+    
 Reparou que no arquivo PHP chamamos o método clear? Se não chamarmos este método (que limpa o valor de uma variável), todas as opções (Options) ficariam com a propriedade "selected" (obviamente, efeito não desejado):
- <html>
-<body>
+
+    <html>
+    <body>
 
 	<select name="cidades">
 
@@ -469,18 +473,21 @@ Reparou que no arquivo PHP chamamos o método clear? Se não chamarmos este mét
 
 	</select>
 
-</body>
-</html>
+    </body>
+    </html>
 
 
-Usando vários arquivos HTML
+## Usando vários arquivos HTML
+
 Um uso bastante comum de templates é usarmos um arquivo HTML que contenha a estrutura básica do nosso site: cabeçalho, rodapé, menus, etc. E outro arquivo com o conteúdo da página que desejamos mostrar, ou seja, o "miolo". Dessa forma, não precisamos repetir em todos os arquivos HTML os elementos comuns (cabeçalho, rodapé, etc), e as páginas HTML que terão o conteúdo (o "miolo") ficarão mais limpas, menores e mais fáceis de serem mantidas.
+
 Como fazer isso com templates? Em primeiro lugar, vamos criar nosso arquivo "base" HTML, o arquivo base.html:
- <html>
-<head>
-<title>Título da Página</title>
-</head>
-<body>
+
+    <html>
+    <head>
+    <title>Título da Página</title>
+    </head>
+    <body>
 
 	<div>{FULANO}, seja bem vindo!</div>
 
@@ -488,35 +495,39 @@ Como fazer isso com templates? Em primeiro lugar, vamos criar nosso arquivo "bas
 
 	<div>Deseja maiores informações? Clique <a href="info.php">aqui</a> para saber</div>
 
-</body>
-</html>
+    </body>
+    </html>
+    
 Agora, vamos criar o arquivo que contém o "miolo" de nossa página HTML, o arquivo miolo.html:
- 	<p>Produtos cadastrados no sistema:</p>
-
-	<!-- BEGIN BLOCK_PRODUTOS -->
-	<table border=1>
 
 
-		<tr><td>Nome</td><td>Quantidade</td></tr>
+    <p>Produtos cadastrados no sistema:</p>
 
-		<!-- BEGIN BLOCK_DADOS -->
-			<tr>
-				<td> {NOME} </td>
-				<td> {QUANTIDADE} </td>
-			</tr>
+    <!-- BEGIN BLOCK_PRODUTOS -->
+    <table border=1>
 
-		<!-- END BLOCK_DADOS -->
 
-	</table>
-	<!-- END BLOCK_PRODUTOS -->
+    <tr><td>Nome</td><td>Quantidade</td></tr>
 
-	<!-- BEGIN BLOCK_VAZIO -->
-	<div class=vazio>Nenhum registro encontrado.</div>
-	<!-- END BLOCK_VAZIO -->
+    <!-- BEGIN BLOCK_DADOS -->
+    <tr>
+	<td> {NOME} </td>
+	<td> {QUANTIDADE} </td>
+    </tr>
+
+    <!-- END BLOCK_DADOS -->
+
+    </table>
+    <!-- END BLOCK_PRODUTOS -->
+
+    <!-- BEGIN BLOCK_VAZIO -->
+    <div class=vazio>Nenhum registro encontrado.</div>
+    <!-- END BLOCK_VAZIO -->
 
 
 No arquivo PHP então, usamos o método addFile(), onde informamos duas coisas: em qual variável do template o conteúdo do novo arquivo será jogado, e qual o caminho desse arquivo. Depois disso, basta usar as variáveis e blocos normalmente, independente de qual arquivo HTML eles estejam:
-<?php 
+
+    <?php 
 
     require("Template.class.php"); 
 
@@ -552,12 +563,14 @@ No arquivo PHP então, usamos o método addFile(), onde informamos duas coisas: 
          
     $tpl->show(); 
      
-?>
+    ?>
 
 
-Guardando o conteúdo do template
+## Guardando o conteúdo do template
+
 Até agora exibimos o conteúdo gerado pelo template na tela, através do método show(). Mas, e quisermos fazer outro uso para esse conteúdo, como salvá-lo em arquivo ou outra coisa do tipo? Basta usarmos o método parse(), que gera o conteúdo final e o retorna:
-<?php 
+
+    <?php 
 
     require("Template.class.php"); 
 
@@ -572,14 +585,19 @@ Até agora exibimos o conteúdo gerado pelo template na tela, através do métod
     // Salva em um arquivo 
     file_put_contents("arquivo.txt", $conteudo); 
      
-?>
+    ?>
 
 
-Usando Objetos
+## Usando Objetos
+
 A classe Template suporta a atribuição de objetos para as variáveis de template em sua versão atual: versão 1.5 (verifique no código fonte da classe sua versão).
+
 Isso faz com que o código nos arquivos PHP fique bastante reduzido (claro, desde que você use objetos), e devido a isso, há uma melhora (quase imperceptível) em desempenho.
+
 Para que os exemplos fiquem mais claros, vamos trabalhar com uma suposta página que exibe detalhes de um produto. Os produtos possuem como atributos: nome, id e valor.
+
 Temos uma classe PHP chamada Produto, que representa a tabela produtos do banco de dados, com o seguinte código (bem rudimentar e sem métodos para salvar/atualizar os dados):
+
 <?php 
 
     class Produto { 
@@ -630,9 +648,11 @@ Temos uma classe PHP chamada Produto, que representa a tabela produtos do banco 
 
     } 
 
-?>
+    ?>
+    
 Usando a classe acima, esta é a forma como estamos fazendo até agora para montar uma página PHP que exibe os dados do produto:
-<?php 
+
+    <?php 
 
     require("Template.class.php"); 
     $tpl = new Template("produtos.html"); 
@@ -646,15 +666,18 @@ Usando a classe acima, esta é a forma como estamos fazendo até agora para mont
 
     $tpl->show(); 
 
-?>
+    ?>
+    
 Agora o respectivo arquivo HTML:
  
-	Nome: {NAME} <br/>
-	Id: {ID} <br/>
-	Preço: {PRICE} <br/>
+    Nome: {NAME} <br/>
+    Id: {ID} <br/>
+    Preço: {PRICE} <br/>
+
 
 Vamos então modificar o arquivo PHP para usar o suporte a objetos de Template:
-<?php 
+
+    <?php 
 
     require("Template.class.php"); 
     $tpl = new Template("produtos.html"); 
@@ -664,67 +687,81 @@ Vamos então modificar o arquivo PHP para usar o suporte a objetos de Template:
 
     $tpl->show(); 
 
-?>
+    ?>
+    
 O arquivo HTML também deve ser modificado pra exibir as propriedades de Produto:
- 
-	Nome: {P->NAME} <br/>
-	Id: {P->ID} <br/>
-	Preço: {P->PRICE} <br/>
+
+    Nome: {P->NAME} <br/>
+    Id: {P->ID} <br/>
+    Preço: {P->PRICE} <br/>
 
 A instrução P->NAME chamará o método $p->getName(), caso ele exista. Se não existir esse método na classe, um erro será disparado.
+
 Isso vale para qualquer atributo que tentarmos chamar no HTML: será traduzido para $meuObjeto->getAtributo().
 Se o nome do método PHP for composto, como por exemplo $p->getExpirationDate(), basta usar underscore (_) no HTML como separador dos nomes: no caso do exemplo, ficaria P->EXPIRATION_DATE.
+
 A classe Template também entende a existência do método __toString().
 
 
-Comentários
+## Comentários
+
 A partir da versão 1.8 (veja no código fonte da classe o número da versão), a classe Template, a exemplo das linguagens de programação, suporta comentários de Template no HTML. Comentários são úteis para várias coisas, entre elas, identificar o autor do HTML, versão, incluir licenças, etc.
+
 Diferentemente dos comentários HTML, que são exibidos no código fonte da página, os comentários da classe Template são extraídos do HTML final. Na verdade os comentários de Template são extraídos antes mesmo de qualquer processamento, e tudo que estiver entre os comentários será ignorado.
+
 Os comentários ficam entre as tags <!--- e --->. Repare que usamos 3 tracinhos, ao invés de 2 (que identificam comentários HTML). A razão é simples: permitir diferenciarmos entre um e outro, e permitir que os editores continuem reconhecendo o conteúdo entre <!--- e ---> como comentários.
+
 Veja o exemplo abaixo:
- 	<!---
-		Listagem de produtos.
 
-		@author Rael
-		@version 1.0
-	--->
+    <!---
+	Listagem de produtos.
 
-	<p>Produtos cadastrados no sistema:</p>
+	@author Rael
+	@version 1.0
+    --->
 
-	<table border=1>
+    <p>Produtos cadastrados no sistema:</p>
 
-
-		<tr><td>Nome</td><td>Quantidade</td></tr>
-
-		<!-- BEGIN BLOCK_DADOS -->
-			<tr>
-				<td> {NOME} </td>
-				<td> {QUANTIDADE} </td>
-			</tr>
-
-		<!-- END BLOCK_DADOS -->
-
-	</table>
-	<!-- END BLOCK_PRODUTOS -->
-
-	<!-- BEGIN BLOCK_VAZIO -->
-	<div class=vazio>Nenhum registro encontrado.</div>
-	<!-- END BLOCK_VAZIO -->
+    <table border=1>
 
 
+	<tr><td>Nome</td><td>Quantidade</td></tr>
+
+	<!-- BEGIN BLOCK_DADOS -->
+		<tr>
+			<td> {NOME} </td>
+			<td> {QUANTIDADE} </td>
+		</tr>
+
+	<!-- END BLOCK_DADOS -->
+
+    </table>
+    <!-- END BLOCK_PRODUTOS -->
+
+    <!-- BEGIN BLOCK_VAZIO -->
+    <div class=vazio>Nenhum registro encontrado.</div>
+    <!-- END BLOCK_VAZIO -->
 
 
-Criando XML, CSV e outros
+## Criando XML, CSV e outros
+
 O uso mais comum de templates é com arquivos HTML. Mas como essa biblioteca é direcionada ao uso de qualquer tipo de arquivo de texto, podemos usá-la com vários outros formatos de arquivo, como XMLs e arquivos CSVs.
+
 Como fazer isso? Mais simples impossível: não muda nada, basta apenas ao invés de indicar um arquivo HTML para o Template, indicar qualquer outro arquivo de texto. E usar variáveis e blocos nele conforme já vimos, exibindo o conteúdo na tela, ou salvando em arquivos.
 
 
-Criando arquivos do Office
+## Criando arquivos do Office
+
 Se você precisa elaborar um relatório que deve ser exibido em formato do Word (.doc) ou do Excel (.xls), também podemos usar a classe Template para isso.
+
 Em primeiro lugar, crie normalmente no Office seu relatório. Após terminar, escolha a opção "Salvar como", e selecione o formato HTML. Feito isso, abra este arquivo HTML em seu editor PHP (não se assuste, é bastante poluído e cheio de tags estranhas) e use-o conforme visto até agora: crie variáveis, declare blocos, nada de diferente.
 Se você for salvar o conteúdo em um arquivo, coloque neste arquivo a extensão .doc" (ou .xls no caso de uma planilha). O Office abrirá normalmente este arquivo, convertendo-o automaticamente de HTML para o formato desejado na primeira vez em que for aberto.
-Se você for exibir o conteúdo no navegador ao invés de salvá-lo num arquivo, você precisa modificar o header para avisar o navegador que se trata de um documento do Office, forçando o navegador a interpretá-lo como tal (o Firefox irá fazer o download do arquivo, o IE irá abrir o Microsoft Office como um plugin e exibir o arquivo dentro do navegador mesmo). Faça isso com a instrução header() do PHP:
-<?php 
+
+Se você for exibir o conteúdo no navegador ao invés de salvá-lo num arquivo, você precisa modificar o header para avisar o navegador que se trata de um documento do Office, forçando o navegador a interpretá-lo como tal (o Firefox irá fazer o download do arquivo, o IE irá abrir o Microsoft Office como um plugin e exibir o arquivo dentro do navegador mesmo).
+
+Faça isso com a instrução header() do PHP:
+
+    <?php 
 
     require("Template.class.php"); 
 
@@ -742,14 +779,20 @@ Se você for exibir o conteúdo no navegador ao invés de salvá-lo num arquivo,
      
     $tpl->show(); 
      
-?>
+    ?>
 
 
-Gerenciando erros
-Quando um erro acontece, você deve ter reparado que a mensagem de erro gerada pela classe Template é um pouco diferente do usual em PHP: ao invés de ser apenas um die() com a mensagem de erro, é gerada uma exceção (Exception). Por que isso?
+## Gerenciando erros
+
+Quando um erro acontece, você deve ter reparado que a mensagem de erro gerada pela classe Template é um pouco diferente do usual em PHP: ao invés de ser apenas um die() com a mensagem de erro, é gerada uma exceção (Exception).
+
+Por que isso?
+
 Com as exceptions, temos duas vantagens: a primeira é ver todo o stack do erro, ou seja, ver desde o lugar em que foi originado o erro, passando por todos os arquivos em que ele apareceu. Isso facilita muito o trabalho de debug e correção. Para ver o código de erro e a stack corretamente, peça para o navegador exibir o código-fonte da página, pois somente neste modo as quebras de linhas são visualizadas corretamente.
+
 A segunda vantagem é poder gerenciar o erro, se desejarmos, e fazermos com que a execução de nosso script não seja interrompida, através do uso de try/catch:
-<?php 
+
+    <?php 
 
     require("Template.class.php"); 
     $tpl = new Template("index.html"); 
@@ -768,20 +811,24 @@ A segunda vantagem é poder gerenciar o erro, se desejarmos, e fazermos com que 
 
     $tpl->show(); 
 
-?>
+    ?>
 
 
-Variáveis Dinâmicas
+## Variáveis Dinâmicas
+
 Imagine um caso onde você tem várias variáveis de template em seu arquivo HTML, e tem um valor que precisa atribuir a uma delas. Mas o problema é: a variável que precisa receber o valor é definida apenas durante a execução do script. Ou seja, é uma variável dinâmica, ou como alguns chamam, uma "variável variável". Nosso arquivo HTML então seria:
- <html>
-<body>
+
+    <html>
+    <body>
 
 	Olá {NOME_FULANO}!
 
-</body>
-</html>
+    </body>
+    </html>
+    
 Repare que no arquivo HTML não há nada de diferente. No arquivo PHP então, basta usar chaves:
-<?php 
+
+    <?php 
 
     require("Template.class.php"); 
 
@@ -795,29 +842,45 @@ Repare que no arquivo HTML não há nada de diferente. No arquivo PHP então, ba
 
     $tpl->show(); 
      
-?>
+    ?>
 
 
-Mensagens de Erro
+## Mensagens de Erro
+
 Abaixo estão os significados para as mensagens de erro exibidas pela classe Template.
-Parse error: syntax error, unexpected T_STRING, expecting T_OLD_FUNCTION or T_FUNCTION or T_VAR or '}': provavelmente você está usando PHP 4 (veja os requisitos necessários para usar esta biblioteca).
-addFile: var <varname> não existe: você está usando o método addFile() para adicionar um arquivo HTML (ou equivalente), mas a variável de template na qual você quer jogar o conteúdo, não existe.
-var <varname> não existe: você está tentando atribuir valor a uma variável que não existe. Certifique-se de que o nome da variável de template está correto, e que você está utilizando como nome desta variável somente letras, números e underscore, entre chaves.
-arquivo <filename> não existe: você está informando o caminho para um arquivo HTML (ou equivalente) que não existe, ou cuja permissão de leitura é negada.
-arquivo <filename> está vazio: o arquivo HTML (ou equivalente) que você está passando como parâmetro está vazio. Se está vazio, ou você está informando um arquivo errado, ou esqueceu de colocar conteúdo nele.
-bloco duplicado: <blockname>: o nome que você está tentando atribuir ao bloco já foi dado para outro bloco. Lembre-se que o nome do blocos deve ser único. Se você estiver usando mais de um arquivo HTML (ou equivalente), o bloco com o mesmo nome que o seu pode estar em um dos outros arquivo.
-bloco <blockname> está mal formado: o bloco que você declarou está com defeitos. Talvez você tenha usado a tag BEGIN BLOCK com um nome, e tenha terminado (a tag END BLOCK) com outro. Ou então, esqueceu da tag END BLOCK.
-bloco <blockname> não existe: você está informando ao método block() o nome de um bloco que não existe. Certifique-se de que o nome do bloco está correto, e que você está utilizando como nome deste bloco somente letras, números e underscore.
-não existe método na classe <classname> para acessar <objeto>-><propriedade>: não existe método para acessar a propriedade que você está chamando. Se você chamar no HTML por OBJETO->NOME, a classe deste objeto precisa ter um método chamado getNome() ou isNome(). Veja maiores detalhes na seção "Usando Objetos".
+
+**Parse error**: syntax error, unexpected T_STRING, expecting T_OLD_FUNCTION or T_FUNCTION or T_VAR or '}': provavelmente você está usando PHP 4 (veja os requisitos necessários para usar esta biblioteca).
+
+**addFile: var <varname> não existe**: você está usando o método addFile() para adicionar um arquivo HTML (ou equivalente), mas a variável de template na qual você quer jogar o conteúdo, não existe.
+
+**var <varname> não existe**: você está tentando atribuir valor a uma variável que não existe. Certifique-se de que o nome da variável de template está correto, e que você está utilizando como nome desta variável somente letras, números e underscore, entre chaves.
+
+**arquivo <filename> não existe**: você está informando o caminho para um arquivo HTML (ou equivalente) que não existe, ou cuja permissão de leitura é negada.
+
+**arquivo <filename> está vazio**: o arquivo HTML (ou equivalente) que você está passando como parâmetro está vazio. Se está vazio, ou você está informando um arquivo errado, ou esqueceu de colocar conteúdo nele.
+
+**bloco duplicado: <blockname>**: o nome que você está tentando atribuir ao bloco já foi dado para outro bloco. Lembre-se que o nome do blocos deve ser único. Se você estiver usando mais de um arquivo HTML (ou equivalente), o bloco com o mesmo nome que o seu pode estar em um dos outros arquivo.
+
+**bloco <blockname> está mal formado**: o bloco que você declarou está com defeitos. Talvez você tenha usado a tag BEGIN BLOCK com um nome, e tenha terminado (a tag END BLOCK) com outro. Ou então, esqueceu da tag END BLOCK.
+
+**bloco <blockname> não existe**: você está informando ao método block() o nome de um bloco que não existe. Certifique-se de que o nome do bloco está correto, e que você está utilizando como nome deste bloco somente letras, números e underscore.
+
+**não existe método na classe <classname> para acessar <objeto>-><propriedade>**: não existe método para acessar a propriedade que você está chamando. Se você chamar no HTML por OBJETO->NOME, a classe deste objeto precisa ter um método chamado getNome() ou isNome(). Veja maiores detalhes na seção "Usando Objetos".
 
 
-Precisão e Desempenho
+## Precisão e Desempenho
+
 Uma dúvida comum ao uso de templates é: o quanto isso afeta o desempenho? A resposta é: menos do que você imagina. Deixe-me explicar o motivo.
+
 Esta biblioteca é muito mais rápida que as bibliotecas de template antigas, como a finada PHPLib, e outras similares. O motivo é que o uso de expressões regulares dentro dela é evitado, não sendo usado para fazer todo o funcionamento, como as bibliotecas antigas faziam.
+
 Ainda assim, esta biblioteca não possui um mecanismo de cache, como por exemplo, o template Smarty possui. Por duas razões. A primeira é a simplicidade de uso: não é preciso criar nem configurar diretórios, nem permissões Unix, etc. A segunda é que o desempenho é bom o suficiente para manter esta simplicidade. De qualquer forma, sinta-se à vontade para criar um mecanismo de cache.
+
 Eu uso esta biblioteca durante anos, e fui aperfeiçoando seu desempenho. Ela já foi usada em sites de grande tráfego, e nunca foi o gargalo. Se você usa esta biblioteca e fizer uma medição de desempenho de seu sistema, verá que em 98% dos casos, o gargalo é o banco de dados, e não o uso do processador. Sempre são consultas mal construídas, ou consultas feitas dentro de laços, este tipo de coisa.
+
 Um efeito colateral do bom desempenho desta biblioteca: se você pedir para seu navegador exibir o código fonte de uma página gerada pela classe Template, irá ver que o código final não remove algumas tabulações (tab ou \t) que existiam no começo de cada bloco do template, dando a aparência de que o código final está um pouco mais bagunçado do que deveria. A razão disto é que se essas tabulações fossem removidas por padrão, esta remoção traria uma queda na performance da classe Template.
-Como uma tabulação no código fonte não traz efeito algum para o conteúdo HTML final, o comportamento padrão da classe Template é ignorar estas tabulações de início de bloco, deixando elas no código final. O único caso em que isso pode ser um problema é quando você precisa de uma reprodução fiel dos seus arquivos HTML, como no uso das tags <pre> e <code>. Já prevendo isso, existe um segundo parâmetro (opcional) usado na declaração do objeto Template: o parâmetro $accurate. Se você usar ele com o valor true, então seu código final HTML será uma reprodução fiel dos arquivos HTML usados no Template (com a devida penalidade em performance):
+
+Como uma tabulação no código fonte não traz efeito algum para o conteúdo HTML final, o comportamento padrão da classe Template é ignorar estas tabulações de início de bloco, deixando elas no código final. O único caso em que isso pode ser um problema é quando você precisa de uma reprodução fiel dos seus arquivos HTML, como no uso das tags `<pre>` e `<code>`. Já prevendo isso, existe um segundo parâmetro (opcional) usado na declaração do objeto Template: o parâmetro $accurate. Se você usar ele com o valor true, então seu código final HTML será uma reprodução fiel dos arquivos HTML usados no Template (com a devida penalidade em performance):
 
     <?php 
 
@@ -833,7 +896,10 @@ Como uma tabulação no código fonte não traz efeito algum para o conteúdo HT
     ?>
 
 
-Conclusão
+## Conclusão
+
 O uso de mecanismos de Template é um grande avanço no desenvolvimento de aplicações web, pois nos permite manter a estrutura visual de nosso aplicativo separado da programação PHP.
+
 Eu tentei incluir neste tutorial todos os tópicos que cobrem o uso de templates. Se você tiver problemas, procure primeiro em todos os tópicos aqui. Lembre-se que este trabalho é voluntário, e que eu gastei muito tempo escrevendo este tutorial, além do tempo gasto nesta biblioteca. Portanto, antes de me enviar um email com algum problema, tente resolvê-lo sozinho: grande parte do aprendizado está nisso. Se você não conseguir, vá em frente, e fale comigo.
+
 Use os comentários para dizer se este tutorial lhe foi útil ou não, sugerir melhorias ou correções. Se você encontrou uma maneira de fazer algo melhor, seja bonzinho e me avise, eu publicarei aqui com os devidos créditos.
