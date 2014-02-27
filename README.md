@@ -36,7 +36,7 @@ Então, vamos lá.
 
 25/02/2014 - Movendo para o [Github](https://github.com/raelgc/template)
 
-26/02/2014 - Versão 2.0: [suporte a namespace](#instala%C3%A7%C3%A3o-e-uso), [blocos finally](#blocos-finally), [parser automático de blocos pai](#blocos-autom%C3%Aticos-por-padr%C3%A3o), [modificadores](#vari%C3%A1veis-com-modificadores)
+26/02/2014 - Versão 2.0: [suporte a namespace](#instala%C3%A7%C3%A3o-e-uso), [blocos finally](#blocos-finally), [parser automático de blocos pai](#blocos-autom%C3%A1ticos-por-padr%C3%A3o), [modificadores](#vari%C3%A1veis-com-modificadores)
 
 
 ## Download
