@@ -848,7 +848,10 @@ Vamos então modificar o arquivo PHP para carregar um produto, e usar o suporte 
     $tpl = new Template("produtos.html");
 
     # Doctrine buscando o produto de ID = 1
-	$entityManager->find('Product', 1);
+	$produto = $entityManager->find('Product', 1);
+
+    # Atribuindo a variável template
+    $tpl->P = $produto;
 
     $tpl->show();
 
@@ -873,7 +876,7 @@ A exemplo das linguagens de programação, a classe Template suporta comentário
 
 Diferentemente dos comentários HTML, que são exibidos no código fonte da página, os comentários da classe Template são extraídos do HTML final. Na verdade os comentários de Template são extraídos antes mesmo de qualquer processamento, e tudo que estiver entre os comentários será ignorado.
 
-Os comentários ficam entre as tags `<!---` e `--->`. Repare que usamos 3 tracinhos, ao invés de 2 (que identificam comentários HTML). A razão é simples: permitir diferenciarmos entre um e outro, e permitir que os editores continuem reconhecendo o conteúdo entre <!--- e ---> como comentários.
+Os comentários ficam entre as tags `<!---` e `--->`. Repare que usamos 3 tracinhos, ao invés de 2 (que identificam comentários HTML). A razão é simples: permitir diferenciarmos entre um e outro, e permitir que os editores continuem reconhecendo o conteúdo entre `<!---` e `--->` como comentários.
 
 Veja o exemplo abaixo:
 
@@ -1034,11 +1037,11 @@ Abaixo estão os significados para as mensagens de erro exibidas pela classe Tem
 
 **bloco duplicado: <blockname>**: o nome que você está tentando atribuir ao bloco já foi dado para outro bloco. Lembre-se que o nome do blocos deve ser único. Se você estiver usando mais de um arquivo HTML (ou equivalente), o bloco com o mesmo nome que o seu pode estar em um dos outros arquivo.
 
-**bloco <blockname> está mal formado**: o bloco que você declarou está com defeitos. Talvez você tenha usado a tag BEGIN BLOCK com um nome, e tenha terminado (a tag END BLOCK) com outro. Ou então, esqueceu da tag END BLOCK.
+**bloco <blockname> está mal formado**: o bloco que você declarou está com defeitos. Talvez você tenha usado a tag `BEGIN BLOCK` com um nome, e tenha terminado (a tag `END BLOCK`) com outro. Ou então, esqueceu da tag `END BLOCK`. Ou tenha colocado a tag `FINALLY BLOCK` em local errado.
 
 **bloco <blockname> não existe**: você está informando ao método block() o nome de um bloco que não existe. Certifique-se de que o nome do bloco está correto, e que você está utilizando como nome deste bloco somente letras, números e underscore.
 
-**não existe método na classe <classname> para acessar <objeto>-><propriedade>**: não existe método para acessar a propriedade que você está chamando. Se você chamar no HTML por OBJETO->NOME, a classe deste objeto precisa ter um método chamado getNome() ou isNome(). Veja maiores detalhes na seção "Usando Objetos".
+**não existe método na classe <classname> para acessar `<objeto>-><propriedade>`**: não existe método para acessar a propriedade que você está chamando. Se você chamar no HTML por `OBJETO->NOME`, a classe deste objeto precisa ter um método chamado getNome() ou isNome(). Veja maiores detalhes na seção "Usando Objetos".
 
 
 ## Precisão e Desempenho
