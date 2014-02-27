@@ -34,9 +34,9 @@ Então, vamos lá.
 
 17/10/2012 - Suporte a arquivos PHP no método addFile()
 
-25/02/2014 - Movendo para o Github
+25/02/2014 - Movendo para o [Github](https://github.com/raelgc/template)
 
-26/02/2014 - Versão 2.0: suporte a namespace, blocos finally, parser automático de blocos pai, modificadores
+26/02/2014 - Versão 2.0: [suporte a namespace](#instala%C3%A7%C3%A3o-e-uso), [blocos finally](#blocos-finally), [parser automático de blocos pai](#blocos-autom%C3%Aticos-por-padr%C3%A3o), [modificadores](#vari%C3%A1veis-com-modificadores)
 
 
 ## Download
@@ -69,12 +69,13 @@ Lembre-se apenas de ser uma pessoa legal e enviar de volta eventuais modificaç�
 
 3 - Copie a pasta `raelgc` (e todo seu conteúdo) para dentro da pasta `lib` do seu projeto (pode descartar as pasta `doc`)
 
-4 - Use `require_once` para incluir a classe Template da seguinte forma:
+4 - Use `require_once` para incluir a classe Template e a diretiva `use` para informar o namespace da classe, da seguinte forma:
 
 ``` php
 <?php 
 
     require_once("lib/raelgc/view/Template.php");
+    use raelgc\view\Template;
 
 ?>
 ```
@@ -103,6 +104,7 @@ Agora, crie o arquivo PHP, hello.php:
 <?php 
 
     require_once("lib/raelgc/view/Template.php");
+    use raelgc\view\Template;
 
     $tpl = new Template("hello.html");
      
@@ -139,6 +141,7 @@ Então, como ficaria o código PHP que atribui valor a ela? Vamos a ele:
 <?php 
 
     require_once("lib/raelgc/view/Template.php");
+    use raelgc\view\Template;
 
     $tpl = new Template("hello.html");
     $tpl->FULANO = "Rael";
@@ -167,6 +170,7 @@ Para ler o valor de uma variável, acesse do mesmo modo:
 <?php 
 
     require_once("lib/raelgc/view/Template.php");
+    use raelgc\view\Template;
 
     $tpl = new Template("hello.html");
      
@@ -194,6 +198,7 @@ Como é de se esperar, ele retorna true caso a variável exista. Caso não, reto
 <?php 
 
     require_once("lib/raelgc/view/Template.php");
+    use raelgc\view\Template;
 
     $tpl = new Template("layout.html");
      
@@ -218,8 +223,7 @@ Vamos supor o seguinte arquivo PHP, que atribui as variáveis de template NOME e
 <?php
 
 	require_once("lib/raelgc/view/Template.php");
-
-	use raelgc\view\Template;
+    use raelgc\view\Template;
    
     $tpl = new Template("modificadores.html");
 	
@@ -286,6 +290,7 @@ E então, no lado PHP, vamos checar se os produtos existem. Caso sim, mostraremo
 <?php 
 
     require_once("lib/raelgc/view/Template.php");
+    use raelgc\view\Template;
 
     $tpl = new Template("hello.html");
      
@@ -345,6 +350,7 @@ Repare que temos apenas uma linha de tabela HTML para os dados dos produtos, den
 <?php 
 
     require_once("lib/raelgc/view/Template.php");
+    use raelgc\view\Template;
 
     $tpl = new Template("hello.html");
      
@@ -375,6 +381,7 @@ No exemplo acima, os dados dos produtos vieram do array $produtos. Caso estes da
 <?php 
 
     require_once("lib/raelgc/view/Template.php");
+    use raelgc\view\Template;
 
     $tpl = new Template("hello.html");
      
@@ -436,6 +443,7 @@ E então, caso existam produtos, nós exibimos o bloco PRODUTOS. Caso contrário
 <?php 
 
     require_once("lib/raelgc/view/Template.php");
+    use raelgc\view\Template;
 
     $tpl = new Template("hello.html");
      
@@ -467,7 +475,48 @@ E então, caso existam produtos, nós exibimos o bloco PRODUTOS. Caso contrário
 ?>
 ```
 
+## Blocos Automáticos por Padrão
+
 Um detalhe muito importante desta nova versão da biblioteca (versão 2.0 em diante) em relação a sua antecessora: agora, se um bloco aninhado é exibido, todos os blocos pais serão automaticamente exibidos.
+
+Ou seja, pegando o exemplo anterior, podemos simplificar o código PHP anterior para ficar assim:
+
+``` php
+<?php 
+
+    require_once("lib/raelgc/view/Template.php");
+    use raelgc\view\Template;
+
+    $tpl = new Template("hello.html");
+     
+    // Produtos cadastrados 
+    $produtos = array( 
+        array("nome" => "Sabão em Pó", "quantidade" => 15), 
+        array("nome" => "Escova de Dente", "quantidade" => 53), 
+        array("nome" => "Creme Dental", "quantidade" => 37) 
+    );
+
+    // Listando os produtos 
+    foreach($produtos as $p){ 
+        $tpl->NOME = $p["nome"];
+        $tpl->QUANTIDADE = $p["quantidade"];
+        $tpl->block("BLOCK_DADOS");
+    } 
+     
+    // Se não existem produtos, mostramos o bloco com o aviso de nenhum cadastrado 
+    if(!isset($produtos) || !is_array($produtos) || !sizeof($produtos)){ 
+        $tpl->block("BLOCK_PRODUTOS");
+    } 
+     
+    $tpl->show();
+     
+?>
+```
+
+Ou seja, se existem produtos, e por consequência o BLOCK_DADOS foi exibido, o BLOCK_PRODUTOS automaticamente será.
+
+Mais continue lendo, vamos conseguir fazer mais coisas automaticamente, e com menos código, usando os Blocos FINALLY.
+
 
 ## Blocos FINALLY
 
@@ -513,6 +562,7 @@ E o arquivo PHP? Bem, ele vai ficar mais simples ainda:
 <?php 
 
     require_once("lib/raelgc/view/Template.php");
+    use raelgc\view\Template;
 
     $tpl = new Template("hello.html");
      
@@ -568,6 +618,7 @@ Agora vamos ao respectivo arquivo PHP:
 <?php
 
 	require_once("lib/raelgc/view/Template.php");
+    use raelgc\view\Template;
 
 	$tpl = new Template("index.html");
 
@@ -684,6 +735,7 @@ No arquivo PHP então, usamos o método addFile(), onde informamos duas coisas: 
 <?php 
 
     require_once("lib/raelgc/view/Template.php");
+    use raelgc\view\Template;
 
     $tpl = new Template("base.html");
 
@@ -720,6 +772,7 @@ Até agora exibimos o conteúdo gerado pelo template na tela, através do métod
 <?php 
 
     require_once("lib/raelgc/view/Template.php");
+    use raelgc\view\Template;
 
     $tpl = new Template("base.html");
     $tpl->addFile("CONTEUDO", "miolo.html");
@@ -806,6 +859,8 @@ Usando a classe acima, esta é a forma como estamos fazendo até agora para mont
 <?php 
 
     require_once("lib/raelgc/view/Template.php");
+    use raelgc\view\Template;
+
     $tpl = new Template("produtos.html");
 
     // Id do produto vem por GET 
@@ -833,6 +888,8 @@ Vamos então modificar o arquivo PHP para usar o suporte a objetos de Template:
 <?php 
 
     require_once("lib/raelgc/view/Template.php");
+    use raelgc\view\Template;
+
     $tpl = new Template("produtos.html");
 
     // Id do produto vem por GET 
@@ -918,6 +975,7 @@ Faça isso com a instrução header() do PHP:
 <?php 
 
     require_once("lib/raelgc/view/Template.php");
+    use raelgc\view\Template;
 
     // Forçando o cabeçalho para o formato escolhido do Office 
     header('Content-type: application/msword');
@@ -951,6 +1009,8 @@ A segunda vantagem é poder gerenciar o erro, se desejarmos, e fazermos com que 
 <?php 
 
     require_once("lib/raelgc/view/Template.php");
+    use raelgc\view\Template;
+
     $tpl = new Template("index.html");
 
     // Tentando acessar variável que não existe 
@@ -989,6 +1049,7 @@ Repare que no arquivo HTML não há nada de diferente. No arquivo PHP então, ba
 <?php 
 
     require_once("lib/raelgc/view/Template.php");
+    use raelgc\view\Template;
 
     $tpl = new Template("base.html");
      
@@ -1045,6 +1106,7 @@ Como uma tabulação no código fonte não traz efeito algum para o conteúdo HT
 <?php 
 
     require_once("lib/raelgc/view/Template.php");
+    use raelgc\view\Template;
 
     // Parâmetro $accurate com valor TRUE 
     $tpl = new Template("base.html", true);
