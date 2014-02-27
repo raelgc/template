@@ -170,13 +170,32 @@ namespace raelgc\view {
 		 * @return    void
 		 */
 		private function loadfile($varname, $filename) {
-			if (!file_exists($filename)) throw new \InvalidArgumentException("file $filename does not exist");
-			// Reading file and hiding comments
-			$str = preg_replace("/<!---.*?--->/smi", "", file_get_contents($filename));
-			if (empty($str)) throw new \InvalidArgumentException("file $filename is empty");
-			$this->setValue($varname, $str);
-			$blocks = $this->identify($str, $varname);
-			$this->createBlocks($blocks);
+			if (!file_exists($filename)) throw new InvalidArgumentException("file $filename does not exist");
+			// If it's PHP file, parse it
+			if($this->isPHP($filename)){
+				ob_start();
+				require $filename;
+				$str = ob_get_contents();
+				ob_end_clean();
+				$this->setValue($varname, $str);
+			} else {
+				// Reading file and hiding comments
+				$str = preg_replace("/<!---.*?--->/smi", "", file_get_contents($filename));
+				if (empty($str)) throw new InvalidArgumentException("file $filename is empty");
+				$this->setValue($varname, $str);
+				$blocks = $this->recognize($str, $varname);
+				$this->createBlocks($blocks);
+			}
+		}
+
+		/** 
+		 * Check if file is a .php
+		 */
+		private function isPHP($filename){
+			foreach(array('.php', '.php5', '.cgi') as $php){
+				if(0 == strcasecmp($php, substr($filename, strripos($filename, $php)))) return true;
+			}
+			return false;
 		}
 
 		/**
