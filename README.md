@@ -66,7 +66,7 @@ Lembre-se apenas de ser uma pessoa legal e enviar de volta eventuais modificaç�
 
 3 - Copie a pasta `raelgc` (e todo seu conteúdo) para dentro da pasta `lib` do seu projeto
 
-4 - Use `require_once` para incluir a classe Template e a diretiva `use` para informar o namespace da classe, da seguinte forma:
+4 - Use `require_once` para incluir a classe Template e a diretiva `use` para informar o [namespace](http://www.php.net/manual/pt_BR/language.namespaces.rationale.php) da classe, da seguinte forma:
 
 ``` php
 <?php 
