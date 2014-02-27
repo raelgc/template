@@ -1041,7 +1041,7 @@ Abaixo estão os significados para as mensagens de erro exibidas pela classe Tem
 
 **bloco <blockname> não existe**: você está informando ao método block() o nome de um bloco que não existe. Certifique-se de que o nome do bloco está correto, e que você está utilizando como nome deste bloco somente letras, números e underscore.
 
-**não existe método na classe <classname> para acessar `<objeto>-><propriedade>`**: não existe método para acessar a propriedade que você está chamando. Se você chamar no HTML por `OBJETO->NOME`, a classe deste objeto precisa ter um método chamado getNome() ou isNome(). Veja maiores detalhes na seção "Usando Objetos".
+**não existe método na classe `<classname>` para acessar `<objeto>-><propriedade>`**: não existe método para acessar a propriedade que você está chamando. Se você chamar no HTML por `OBJETO->NOME`, a classe deste objeto precisa ter um método chamado getNome() ou isNome(). Veja maiores detalhes na seção "Usando Objetos".
 
 
 ## Precisão e Desempenho
