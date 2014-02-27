@@ -46,10 +46,6 @@ Para baixar a biblioteca escolha entre:
 - Usar o git para clonar o repositório (`git clone git@github.com:raelgc/template.git`) ou 
 - Baixar o [arquivo .zip](https://github.com/raelgc/template/archive/master.zip).
 
-## API
-
-A documentação dos métodos (API), estará na pasta `doc`, arquivo `api.html`.
-
 ## Licença
 
 A licença desta biblioteca é regida pela licença LGPL. Ou seja, você pode utilizá-la, como biblioteca, mesmo em projetos comerciais.
@@ -58,6 +54,7 @@ Lembre-se apenas de ser uma pessoa legal e enviar de volta eventuais modificaç�
 
 
 ## Requisitos Necessários
+
 É preciso usar qualquer versão do PHP igual ou superior a 5.3.
 
 
@@ -67,7 +64,7 @@ Lembre-se apenas de ser uma pessoa legal e enviar de volta eventuais modificaç�
 
 2 - Você precisa criar uma pasta `lib` no seu projeto
 
-3 - Copie a pasta `raelgc` (e todo seu conteúdo) para dentro da pasta `lib` do seu projeto (pode descartar as pasta `doc`)
+3 - Copie a pasta `raelgc` (e todo seu conteúdo) para dentro da pasta `lib` do seu projeto
 
 4 - Use `require_once` para incluir a classe Template e a diretiva `use` para informar o namespace da classe, da seguinte forma:
 
@@ -1080,4 +1077,4 @@ O uso de mecanismos de Template é um grande avanço no desenvolvimento de aplic
 
 Eu tentei incluir neste tutorial todos os tópicos que cobrem o uso de templates. Se você tiver problemas, procure primeiro em todos os tópicos aqui. Lembre-se que este trabalho é voluntário, e que eu gastei muito tempo escrevendo este tutorial, além do tempo gasto nesta biblioteca. Portanto, antes de me enviar um email com algum problema, tente resolvê-lo sozinho: grande parte do aprendizado está nisso. Se você não conseguir, vá em frente, e fale comigo.
 
-Use os comentários para dizer se este tutorial lhe foi útil ou não, sugerir melhorias ou correções. Se você encontrou uma maneira de fazer algo melhor, seja bonzinho e me avise, eu publicarei aqui com os devidos créditos.
+Use os [comentários](http://raelcunha.com/packages/blog/pages/index.tpl.php?post=328) para dizer se este tutorial lhe foi útil ou não, sugerir melhorias ou correções. Se você encontrou uma maneira de fazer algo melhor, seja bonzinho e me avise, eu publicarei aqui com os devidos créditos.
