@@ -791,109 +791,67 @@ Até agora exibimos o conteúdo gerado pelo template na tela, através do métod
 
 ## Usando Objetos
 
-A classe Template suporta a atribuição de objetos para as variáveis de template em sua versão atual: versão 1.5 (verifique no código fonte da classe sua versão).
+A classe Template suporta a atribuição de objetos para as variáveis de template desde a versão 1.5 (verifique no código fonte da classe sua versão).
+
+Isso ajuda bastante caso estejamos usando alguma biblioteca ORM, como [Doctrine2](http://doctrine-orm.readthedocs.org/en/latest/tutorials/getting-started.html), o [ORM do Kohana](http://kohanaframework.org/3.3/guide/orm/using) ou o [Eloquent do Laravel](http://laravel.com/docs/eloquent).
 
 Isso faz com que o código nos arquivos PHP fique bastante reduzido (claro, desde que você use objetos), e devido a isso, há uma melhora (quase imperceptível) em desempenho.
 
-Para que os exemplos fiquem mais claros, vamos trabalhar com uma suposta página que exibe detalhes de um produto. Os produtos possuem como atributos: nome, id e valor.
+Para que os exemplos fiquem mais claros, vamos trabalhar com uma suposta página que exibe detalhes de um produto. Os produtos possuem como atributos: `id` e `name`.
 
-Temos uma classe PHP chamada Produto, que representa a tabela produtos do banco de dados, com o seguinte código (bem rudimentar e sem métodos para salvar/atualizar os dados):
+A classe Template funcionará tanto com classes que usam encapsulamento (`get` e `set` do atributo), quanto para classes que chamam os atributos diretamente (geralmente através dos métodos mágicos do PHP).
+
+Primeiro, vamos a um exemplo de classe Produtos retirado diretamente dos [exemplos da Doctrine2](http://doctrine-orm.readthedocs.org/en/latest/tutorials/getting-started.html#starting-with-the-product):
 
 ``` php
 <?php 
 
-    class Produto { 
+	// src/Product.php
+	class Product
+	{
+		/**
+		 * @var int
+		 */
+		protected $id;
+		/**
+		 * @var string
+		 */
+		protected $name;
 
-        protected $id = 0;
-        protected $name;
-        protected $price = 0.0;
+		public function getId()
+		{
+			return $this->id;
+		}
 
-        public function __construct($id = 0){ 
-            if(0!=$id) $this->loadById($id);
-        } 
+		public function getName()
+		{
+			return $this->name;
+		}
 
-        public function loadById($id){ 
-            $db = new PDO('mysql:host=localhost;dbname=database', 'usuario', 'senha');
-            $result = $db->query("SELECT * FROM produtos WHERE id = ".intval($id));
-            if($row = $result->fetch()){ 
-                $this->setId($row['id']);
-                $this->setName($row['nome']);
-                $this->setPrice($row['preco']);
-                return true;
-            } 
-            return false;
-        } 
-
-        public function getId(){ 
-            return $this->id;
-        } 
-
-        public function setId($id){ 
-            $this->id = intval($id);
-        } 
-
-        public function getName(){ 
-            return $this->name;
-        } 
-
-        public function setName($name){ 
-            $this->name = $name;
-        } 
-
-        public function getPrice(){ 
-            return $this->price;
-        } 
-
-        public function setPrice($price){ 
-            $this->price = floatval($price);
-        } 
-
-    } 
+		public function setName($name)
+		{
+			$this->name = $name;
+		}
+	}
 
 ?>
 ```
     
-Usando a classe acima, esta é a forma como estamos fazendo até agora para montar uma página PHP que exibe os dados do produto:
+Vamos então modificar o arquivo PHP para carregar um produto, e usar o suporte a objetos de Template:
 
 ``` php
 <?php 
+
+    # Bootstrap da Doctrine2
+    require_once "bootstrap.php";
 
     require_once("lib/raelgc/view/Template.php");
     use raelgc\view\Template;
 
     $tpl = new Template("produtos.html");
 
-    // Id do produto vem por GET 
-    $p = new Produto($_GET['id']);
-
-    $tpl->NAME = $p->getName();
-    $tpl->ID = $p->getId();
-    $tpl->PRICE = $p->getPrice();
-
-    $tpl->show();
-
-?>
-```
- 
-Agora o respectivo arquivo HTML:
- 
-    Nome: {NAME} <br/>
-    Id: {ID} <br/>
-    Preço: {PRICE} <br/>
-
-
-Vamos então modificar o arquivo PHP para usar o suporte a objetos de Template:
-
-``` php
-<?php 
-
-    require_once("lib/raelgc/view/Template.php");
-    use raelgc\view\Template;
-
-    $tpl = new Template("produtos.html");
-
-    // Id do produto vem por GET 
-    $tpl->P = new Produto($_GET['id']);
+    # Doctrine buscando o produto de ID = 1
+	$entityManager->find('Product', 1);
 
     $tpl->show();
 
@@ -902,17 +860,15 @@ Vamos então modificar o arquivo PHP para usar o suporte a objetos de Template:
 
 O arquivo HTML também deve ser modificado pra exibir as propriedades de Produto:
 
-    Nome: {P->NAME} <br/>
     Id: {P->ID} <br/>
-    Preço: {P->PRICE} <br/>
+    Nome: {P->NAME} <br/>
 
 A instrução P->NAME chamará o método $p->getName(), caso ele exista. Se não existir esse método na classe, um erro será disparado.
 
-Isso vale para qualquer atributo que tentarmos chamar no HTML: será traduzido para $meuObjeto->getAtributo().
-Se o nome do método PHP for composto, como por exemplo $p->getExpirationDate(), basta usar underscore (_) no HTML como separador dos nomes: no caso do exemplo, ficaria P->EXPIRATION_DATE.
+Isso vale para qualquer atributo que tentarmos chamar no HTML: será traduzido para `$meuObjeto->getAtributo()`.
+Se o nome do método PHP for composto, como por exemplo `$p->getExpirationDate()`, basta usar underscore `_` no HTML como separador dos nomes: no caso do exemplo, ficaria `P->EXPIRATION_DATE`.
 
-A classe Template também entende a existência do método __toString().
-
+Se a biblioteca ORM não fizer uso de `get` e `set`, como no Kohana ou Laravel, também funciona: a classe Template vai ver se a classe Produto tem o atributo `$meuObjeto->atributo`, e ainda, se a classe tiver o método mágico `__get`, a classe Template também tentará chamá-lo.
 
 ## Comentários
 
@@ -920,7 +876,7 @@ A exemplo das linguagens de programação, a classe Template suporta comentário
 
 Diferentemente dos comentários HTML, que são exibidos no código fonte da página, os comentários da classe Template são extraídos do HTML final. Na verdade os comentários de Template são extraídos antes mesmo de qualquer processamento, e tudo que estiver entre os comentários será ignorado.
 
-Os comentários ficam entre as tags <!--- e --->. Repare que usamos 3 tracinhos, ao invés de 2 (que identificam comentários HTML). A razão é simples: permitir diferenciarmos entre um e outro, e permitir que os editores continuem reconhecendo o conteúdo entre <!--- e ---> como comentários.
+Os comentários ficam entre as tags `<!---` e `--->`. Repare que usamos 3 tracinhos, ao invés de 2 (que identificam comentários HTML). A razão é simples: permitir diferenciarmos entre um e outro, e permitir que os editores continuem reconhecendo o conteúdo entre <!--- e ---> como comentários.
 
 Veja o exemplo abaixo:
 
