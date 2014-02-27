@@ -251,9 +251,9 @@ E o seguinte HTML, já fazendo uso dos modificadores:
 
 Explicando: a linha `{NOME|replace:Fulano:Rael}` equivale a chamar no PHP `replace('Fulano Ciclano da Silva', 'Fulano', 'Rael')`.
 
-E essa função `replace`? É uma função declarada dentro da classe Template, que basicamente faz a mesma coisa que a função do PHP [`str_replace`](php.net/manual/pt_BR/function.str-replace.php) (substitui um texto por outro). A diferença é que ela recebe uma string como primeiro parâmetro. Lembre que essa é uma das condições para uma função poder ser usada dentro do HTML.
+E essa função `replace`? É uma função declarada dentro da classe Template, que basicamente faz a mesma coisa que a função do PHP [`str_replace`](http://php.net/manual/pt_BR/function.str-replace.php) (substitui um texto por outro). A diferença é que ela recebe uma string como primeiro parâmetro. Lembre que essa é uma das condições para uma função poder ser usada dentro do HTML.
 
-Já no segundo exemplo, usamos a função interna do PHP, [`str_pad`](php.net/manual/pt_BR/function.str-pad.php) (já que ela já recebe como primeiro parâmetro uma string, não precisamos criar uma nova função). Neste caso, estamos usando ela para adicionar zeros à esquerda do valor, para que o valor sempre tenha 5 dígitos (e quando não tiver, que esses dígitos sejam completados com zero). Veja a [documentação desta função](php.net/manual/pt_BR/function.str-pad.php) para maiores esclarecimentos.
+Já no segundo exemplo, usamos a função interna do PHP, [`str_pad`](http://php.net/manual/pt_BR/function.str-pad.php) (já que ela já recebe como primeiro parâmetro uma string, não precisamos criar uma nova função). Neste caso, estamos usando ela para adicionar zeros à esquerda do valor, para que o valor sempre tenha 5 dígitos (e quando não tiver, que esses dígitos sejam completados com zero). Veja a [documentação desta função](http://php.net/manual/pt_BR/function.str-pad.php) para maiores esclarecimentos.
 
 ## Blocos
 
