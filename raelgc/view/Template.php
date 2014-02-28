@@ -161,7 +161,7 @@ namespace raelgc\view {
 		 *
 		 * The file will be loaded and the file's contents will be assigned as the
 		 * variable's value.
-		 * Additionally, this method call Template::recognize() that identifies
+		 * Additionally, this method call Template::identify() that identifies
 		 * all blocks and variables automatically.
 		 *
 		 * @param     string $varname		contains the name of a variable to load
@@ -183,7 +183,7 @@ namespace raelgc\view {
 				$str = preg_replace("/<!---.*?--->/smi", "", file_get_contents($filename));
 				if (empty($str)) throw new InvalidArgumentException("file $filename is empty");
 				$this->setValue($varname, $str);
-				$blocks = $this->recognize($str, $varname);
+				$blocks = $this->identify($str, $varname);
 				$this->createBlocks($blocks);
 			}
 		}
