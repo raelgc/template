@@ -408,12 +408,12 @@ namespace raelgc\view {
 						for($i = 1; $i < sizeof($property); $i++){
 							if(!is_null($pointer)){
 								$obj = strtolower(str_replace('_', '', $property[$i]));
-								// Property acessor
-								if(property_exists($pointer, $obj)) $pointer = $pointer->$obj;
 								// Get accessor
-								elseif(method_exists($pointer, "get$obj")) $pointer = $pointer->{"get$obj"}();
+								if(method_exists($pointer, "get$obj")) $pointer = $pointer->{"get$obj"}();
 								// Magic __get accessor
 								elseif(method_exists($pointer, "__get")) $pointer = $pointer->__get($property[$i]);
+								// Property acessor
+								elseif(property_exists($pointer, $obj)) $pointer = $pointer->$obj;
 								else {
 									$className = $property[$i-1] ? $property[$i-1] : get_class($instance);
 									$class = is_null($pointer) ? "NULL" : get_class($pointer);
