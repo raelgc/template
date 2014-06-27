@@ -15,7 +15,7 @@ namespace raelgc\view {
 	 * minor features.
 	 *
 	 * @author Rael G.C. (rael.gc@gmail.com)
-	 * @version 2.1
+	 * @version 2.2
 	 */
 	class Template {
 
@@ -188,7 +188,7 @@ namespace raelgc\view {
 			}
 		}
 
-		/** 
+		/**
 		 * Check if file is a .php
 		 */
 		private function isPHP($filename){
@@ -506,7 +506,7 @@ namespace raelgc\view {
 		}
 
 	}
-	
+
 }
 
 namespace {
