@@ -18,27 +18,18 @@ Então, vamos lá.
 
 ## Histórico
 
-26/02/2008 - Versão inicial do Tutorial
-
-10/08/2008 - Adicionadas informações sobre html select
-
-04/05/2009 - Renomeados: método parseBlock() para block(), getContent() para parse(), clearVar para clear()
-
-05/05/2009 - Valor do parâmetro $append do método block() alterado para true
-
-07/05/2009 - Substituídas Exceptions genéricas pelas Exceptions da SPL
-
-20/07/2009 - Adicionado suporte a comentários e pequena melhora no desempenho
-
-06/04/2010 - Adicionado método exists() para checar existência de uma variável
-
-17/10/2012 - Suporte a arquivos PHP no método addFile()
-
-25/02/2014 - Movendo para o [Github](https://github.com/raelgc/template)
-
-26/02/2014 - Versão 2.0: [suporte a namespace](#instala%C3%A7%C3%A3o-e-uso), [blocos finally](#blocos-finally), [parser automático de blocos pai](#blocos-autom%C3%A1ticos-por-padr%C3%A3o), [modificadores](#vari%C3%A1veis-com-modificadores)
-
-27/06/2014 - Versão 2.2: Arrumando ordem de leitura dos atributos de uma classe (obrigado @eduardoeldorado)
+26/02/2008 - Versão inicial do Tutorial  
+10/08/2008 - Adicionadas informações sobre html select  
+04/05/2009 - Renomeados: método parseBlock() para block(), getContent() para parse(), clearVar para clear()  
+05/05/2009 - Valor do parâmetro $append do método block() alterado para true  
+07/05/2009 - Substituídas Exceptions genéricas pelas Exceptions da SPL  
+20/07/2009 - Adicionado suporte a comentários e pequena melhora no desempenho  
+06/04/2010 - Adicionado método exists() para checar existência de uma variável  
+17/10/2012 - Suporte a arquivos PHP no método addFile()  
+25/02/2014 - Movendo para o [Github](https://github.com/raelgc/template)  
+26/02/2014 - Versão 2.0: [suporte a namespace](#instala%C3%A7%C3%A3o-e-uso), [blocos finally](#blocos-finally), [parser automático de blocos pai](#blocos-autom%C3%A1ticos-por-padr%C3%A3o), [modificadores](#vari%C3%A1veis-com-modificadores)  
+27/06/2014 - Versão 2.2: Arrumando ordem de leitura dos atributos de uma classe (obrigado @eduardoeldorado)  
+25/07/2014 - Adicionando escape para variáveis
 
 ## Download
 
@@ -1022,6 +1013,34 @@ Repare que no arquivo HTML não há nada de diferente. No arquivo PHP então, ba
 ```
 
 
+## Escapando Variáveis
+
+Vamos supor que por algum motivo você precise manter uma variável de template no resultado final de seu HTML. Como por exemplo: você está escrevendo um sistema que gera os templates automaticamente pra você. 
+
+Para isso, vamos supor que você tenha o HTML abaixo:
+
+    <html>
+    <body>
+
+	{CONTEUDO}
+
+    </body>
+    </html>
+    
+E você precisa que `{CONTEUDO}` não seja substituído (ou removido), mas que permaneça no HTML final.
+
+Para isso, faça o *escape* incluindo `{_}` dentro da variável:
+
+    <html>
+    <body>
+
+	{{_}CONTEUDO}
+
+    </body>
+    </html>
+
+E pronto: no HTML final `{CONTEUDO}` ainda estará presente.
+    
 ## Mensagens de Erro
 
 Abaixo estão os significados para as mensagens de erro exibidas pela classe Template.
