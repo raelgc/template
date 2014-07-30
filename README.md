@@ -29,7 +29,7 @@ Então, vamos lá.
 25/02/2014 - Movendo para o [Github](https://github.com/raelgc/template)  
 26/02/2014 - Versão 2.0: [suporte a namespace](#instala%C3%A7%C3%A3o-e-uso), [blocos finally](#blocos-finally), [parser automático de blocos pai](#blocos-autom%C3%A1ticos-por-padr%C3%A3o), [modificadores](#vari%C3%A1veis-com-modificadores)  
 27/06/2014 - Versão 2.2: Arrumando ordem de leitura dos atributos de uma classe (obrigado @eduardoeldorado)  
-25/07/2014 - Adicionando escape para variáveis
+25/07/2014 - Adicionando informação sobre escape para variáveis
 
 ## Download
 
@@ -1100,4 +1100,4 @@ O uso de mecanismos de Template é um grande avanço no desenvolvimento de aplic
 
 Eu tentei incluir neste tutorial todos os tópicos que cobrem o uso de templates. Se você tiver problemas, procure primeiro em todos os tópicos aqui. Lembre-se que este trabalho é voluntário, e que eu gastei muito tempo escrevendo este tutorial, além do tempo gasto nesta biblioteca. Portanto, antes de me enviar um email com algum problema, tente resolvê-lo sozinho: grande parte do aprendizado está nisso. Se você não conseguir, vá em frente, e fale comigo.
 
-Use os [comentários](http://raelcunha.com/packages/blog/pages/index.tpl.php?post=328) para dizer se este tutorial lhe foi útil ou não, sugerir melhorias ou correções. Se você encontrou uma maneira de fazer algo melhor, seja bonzinho e me avise, eu publicarei aqui com os devidos créditos.
+Use os [comentários](http://raelcunha.com/index.php?post=328) para dizer se este tutorial lhe foi útil ou não, sugerir melhorias ou correções. Se você encontrou uma maneira de fazer algo melhor, seja bonzinho e me avise, eu publicarei aqui com os devidos créditos.
