@@ -36,8 +36,9 @@ Então, vamos lá.
 
 Para baixar a biblioteca escolha entre:
 
-- Usar o git para clonar o repositório (`git clone git@github.com:raelgc/template.git`) ou
-- Baixar o [arquivo .zip](https://github.com/raelgc/template/archive/master.zip).
+- Usar Composer (`composer require raelgc/template`);
+- Usar o git para clonar o repositório (`git clone git@github.com:raelgc/template.git`);
+- Baixar o [arquivo .zip](https://github.com/raelgc/template/archive/master.zip);
 
 ## Licença
 
