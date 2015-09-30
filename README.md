@@ -30,6 +30,7 @@ Então, vamos lá.
 26/02/2014 - Versão 2.0: [suporte a namespace](#instala%C3%A7%C3%A3o-e-uso), [blocos finally](#blocos-finally), [parser automático de blocos pai](#blocos-autom%C3%A1ticos-por-padr%C3%A3o), [modificadores](#vari%C3%A1veis-com-modificadores)  
 27/06/2014 - Versão 2.2: Arrumando ordem de leitura dos atributos de uma classe (obrigado @eduardoeldorado)  
 25/07/2014 - Adicionando informação sobre escape para variáveis
+30/09/2015 - Adequação aos PSRs 1, 2 e 4
 
 ## Download
 
@@ -56,14 +57,14 @@ Lembre-se apenas de ser uma pessoa legal e enviar de volta eventuais modificaç�
 
 2 - Você precisa criar uma pasta `lib` no seu projeto
 
-3 - Copie a pasta `raelgc` (e todo seu conteúdo) para dentro da pasta `lib` do seu projeto
+3 - Copie a pasta `src` (e todo seu conteúdo) para dentro da pasta `lib` do seu projeto
 
 4 - Use `require_once` para incluir a classe Template e a diretiva `use` para informar o [namespace](http://www.php.net/manual/pt_BR/language.namespaces.rationale.php) da classe, da seguinte forma:
 
 ``` php
 <?php
 
-    require_once("lib/raelgc/view/Template.php");
+    require_once("lib/src/raelgc/view/Template.php");
     use raelgc\view\Template;
 
 ?>
@@ -92,7 +93,7 @@ Agora, crie o arquivo PHP, hello.php:
 ``` php
 <?php
 
-    require_once("lib/raelgc/view/Template.php");
+    require_once("lib/src/raelgc/view/Template.php");
     use raelgc\view\Template;
 
     $tpl = new Template("hello.html");
@@ -129,7 +130,7 @@ Então, como ficaria o código PHP que atribui valor a ela? Vamos a ele:
 ``` php
 <?php
 
-    require_once("lib/raelgc/view/Template.php");
+    require_once("lib/src/raelgc/view/Template.php");
     use raelgc\view\Template;
 
     $tpl = new Template("hello.html");
@@ -158,7 +159,7 @@ Para ler o valor de uma variável, acesse do mesmo modo:
 ``` php
 <?php
 
-    require_once("lib/raelgc/view/Template.php");
+    require_once("lib/src/raelgc/view/Template.php");
     use raelgc\view\Template;
 
     $tpl = new Template("hello.html");
@@ -186,7 +187,7 @@ Como é de se esperar, ele retorna true caso a variável exista. Caso não, reto
 ``` php
 <?php
 
-    require_once("lib/raelgc/view/Template.php");
+    require_once("lib/src/raelgc/view/Template.php");
     use raelgc\view\Template;
 
     $tpl = new Template("layout.html");
@@ -211,7 +212,7 @@ Vamos supor o seguinte arquivo PHP, que atribui as variáveis de template NOME e
 ``` php
 <?php
 
-	require_once("lib/raelgc/view/Template.php");
+	require_once("lib/src/raelgc/view/Template.php");
     use raelgc\view\Template;
 
     $tpl = new Template("modificadores.html");
@@ -278,7 +279,7 @@ E então, no lado PHP, vamos checar se os produtos existem. Caso sim, mostraremo
 ``` php
 <?php
 
-    require_once("lib/raelgc/view/Template.php");
+    require_once("lib/src/raelgc/view/Template.php");
     use raelgc\view\Template;
 
     $tpl = new Template("hello.html");
@@ -338,7 +339,7 @@ Repare que temos apenas uma linha de tabela HTML para os dados dos produtos, den
 ``` php
 <?php
 
-    require_once("lib/raelgc/view/Template.php");
+    require_once("lib/src/raelgc/view/Template.php");
     use raelgc\view\Template;
 
     $tpl = new Template("hello.html");
@@ -369,7 +370,7 @@ No exemplo acima, os dados dos produtos vieram do array $produtos. Caso estes da
 ``` php
 <?php
 
-    require_once("lib/raelgc/view/Template.php");
+    require_once("lib/src/raelgc/view/Template.php");
     use raelgc\view\Template;
 
     $tpl = new Template("hello.html");
@@ -431,7 +432,7 @@ E então, caso existam produtos, nós exibimos o bloco PRODUTOS. Caso contrário
 ``` php
 <?php
 
-    require_once("lib/raelgc/view/Template.php");
+    require_once("lib/src/raelgc/view/Template.php");
     use raelgc\view\Template;
 
     $tpl = new Template("hello.html");
@@ -473,7 +474,7 @@ Ou seja, pegando o exemplo anterior, podemos simplificar o código PHP anterior 
 ``` php
 <?php
 
-    require_once("lib/raelgc/view/Template.php");
+    require_once("lib/src/raelgc/view/Template.php");
     use raelgc\view\Template;
 
     $tpl = new Template("hello.html");
@@ -550,7 +551,7 @@ E o arquivo PHP? Bem, ele vai ficar mais simples ainda:
 ``` php
 <?php
 
-    require_once("lib/raelgc/view/Template.php");
+    require_once("lib/src/raelgc/view/Template.php");
     use raelgc\view\Template;
 
     $tpl = new Template("hello.html");
@@ -606,7 +607,7 @@ Agora vamos ao respectivo arquivo PHP:
 ``` php
 <?php
 
-	require_once("lib/raelgc/view/Template.php");
+	require_once("lib/src/raelgc/view/Template.php");
     use raelgc\view\Template;
 
 	$tpl = new Template("index.html");
@@ -723,7 +724,7 @@ No arquivo PHP então, usamos o método addFile(), onde informamos duas coisas: 
 ``` php
 <?php
 
-    require_once("lib/raelgc/view/Template.php");
+    require_once("lib/src/raelgc/view/Template.php");
     use raelgc\view\Template;
 
     $tpl = new Template("base.html");
@@ -760,7 +761,7 @@ Até agora exibimos o conteúdo gerado pelo template na tela, através do métod
 ``` php
 <?php
 
-    require_once("lib/raelgc/view/Template.php");
+    require_once("lib/src/raelgc/view/Template.php");
     use raelgc\view\Template;
 
     $tpl = new Template("base.html");
@@ -834,7 +835,7 @@ Vamos então modificar o arquivo PHP para carregar um produto, e usar o suporte 
     # Bootstrap da Doctrine2
     require_once "bootstrap.php";
 
-    require_once("lib/raelgc/view/Template.php");
+    require_once("lib/src/raelgc/view/Template.php");
     use raelgc\view\Template;
 
     $tpl = new Template("produtos.html");
@@ -922,7 +923,7 @@ Faça isso com a instrução header() do PHP:
 ``` php
 <?php
 
-    require_once("lib/raelgc/view/Template.php");
+    require_once("lib/src/raelgc/view/Template.php");
     use raelgc\view\Template;
 
     // Forçando o cabeçalho para o formato escolhido do Office
@@ -956,7 +957,7 @@ A segunda vantagem é poder gerenciar o erro, se desejarmos, e fazermos com que 
 ``` php
 <?php
 
-    require_once("lib/raelgc/view/Template.php");
+    require_once("lib/src/raelgc/view/Template.php");
     use raelgc\view\Template;
 
     $tpl = new Template("index.html");
@@ -996,7 +997,7 @@ Repare que no arquivo HTML não há nada de diferente. No arquivo PHP então, ba
 ``` php
 <?php
 
-    require_once("lib/raelgc/view/Template.php");
+    require_once("lib/src/raelgc/view/Template.php");
     use raelgc\view\Template;
 
     $tpl = new Template("base.html");
@@ -1081,7 +1082,7 @@ Como uma tabulação no código fonte não traz efeito algum para o conteúdo HT
 ``` php
 <?php
 
-    require_once("lib/raelgc/view/Template.php");
+    require_once("lib/src/raelgc/view/Template.php");
     use raelgc\view\Template;
 
     // Parâmetro $accurate com valor TRUE
