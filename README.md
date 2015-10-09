@@ -881,6 +881,7 @@ Veja o exemplo abaixo:
 
     <p>Produtos cadastrados no sistema:</p>
 
+    <!-- BEGIN BLOCK_PRODUTOS -->
     <table border=1>
 
 
