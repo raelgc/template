@@ -1101,4 +1101,4 @@ O uso de mecanismos de Template é um grande avanço no desenvolvimento de aplic
 
 Eu tentei incluir neste tutorial todos os tópicos que cobrem o uso de templates. Se você tiver problemas, procure primeiro em todos os tópicos aqui. Lembre-se que este trabalho é voluntário, e que eu gastei muito tempo escrevendo este tutorial, além do tempo gasto nesta biblioteca. Portanto, antes de me enviar um email com algum problema, tente resolvê-lo sozinho: grande parte do aprendizado está nisso. Se você não conseguir, vá em frente, e fale comigo.
 
-Use os [comentários](http://raelcunha.com/template.php) para dizer se este tutorial lhe foi útil ou não, sugerir melhorias ou correções. Se você encontrou uma maneira de fazer algo melhor, seja bonzinho e me avise, eu publicarei aqui com os devidos créditos.
+Em caso de defeitos, sugestões ou melhorias, crie um [issue no GitHub](https://github.com/raelgc/template/issues/).
