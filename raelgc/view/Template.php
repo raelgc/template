@@ -15,7 +15,7 @@ namespace raelgc\view {
 	 * minor features.
 	 *
 	 * @author Rael G.C. (rael.gc@gmail.com)
-	 * @version 2.2
+	 * @version 2.2.1
 	 */
 	class Template {
 
@@ -215,6 +215,12 @@ namespace raelgc\view {
 			$blocks = array();
 			$queued_blocks = array();
 			$this->identifyVars($content);
+			$lines = explode("\n", $content);
+			// Checking for minified HTML
+			if(1==sizeof($lines)){
+				$content = str_replace('-->', "-->\n", $content);
+				$lines = explode("\n", $content);
+			}
 			foreach (explode("\n", $content) as $line) {
 				if (strpos($line, "<!--")!==false) $this->identifyBlocks($line, $varname, $queued_blocks, $blocks);
 			}

@@ -30,6 +30,7 @@ Então, vamos lá.
 26/02/2014 - Versão 2.0: [suporte a namespace](#instala%C3%A7%C3%A3o-e-uso), [blocos finally](#blocos-finally), [parser automático de blocos pai](#blocos-autom%C3%A1ticos-por-padr%C3%A3o), [modificadores](#vari%C3%A1veis-com-modificadores)  
 27/06/2014 - Versão 2.2: Arrumando ordem de leitura dos atributos de uma classe (obrigado @eduardoeldorado)  
 25/07/2014 - Adicionando informação sobre escape para variáveis
+13/12/2015 - Suporte a HTML Minificado
 
 ## Download
 
