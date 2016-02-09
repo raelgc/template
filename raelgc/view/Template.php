@@ -15,7 +15,7 @@ namespace raelgc\view {
 	 * minor features.
 	 *
 	 * @author Rael G.C. (rael.gc@gmail.com)
-	 * @version 2.2.2
+	 * @version 2.2.3
 	 */
 	class Template {
 
@@ -462,9 +462,10 @@ namespace raelgc\view {
 		 * Otherwise, the block will not appear in the resultant
 		 * content.
 		 *
-		 * @param     string $block		the block name to be parsed
+		 * @param     string $block     the block name to be parsed
+		 * @param     boolean $append   true if the content must be appended
 		 */
-		public function block($block) {
+		public function block($block, $append = true) {
 			if(!in_array($block, $this->blocks)) throw new \InvalidArgumentException("block $block does not exist");
 			// Checking finally blocks inside this block
 			if(isset($this->parents[$block])) foreach($this->parents[$block] as $child){
@@ -473,7 +474,11 @@ namespace raelgc\view {
 					$this->parsed[] = $block;
 				}
 			}
-			$this->setValue($block.'_value', $this->getVar($block.'_value') . $this->subst($this->getVar($block)));
+			if ($append) {
+				$this->setValue($block.'_value', $this->getVar($block.'_value') . $this->subst($this->getVar($block)));
+			} else {
+				$this->setValue($block.'_value', $this->getVar($block.'_value'));
+			}
 			if(!in_array($block, $this->parsed)) $this->parsed[] = $block;
 			// Cleaning children
 			if(isset($this->parents[$block])) foreach($this->parents[$block] as $child) $this->clear($child.'_value');
