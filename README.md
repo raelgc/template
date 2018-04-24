@@ -37,11 +37,11 @@ Então, vamos lá.
 
 ## Instalação
 
-Você pode escolher instalar a biblioteca via Composer, via Git ou fazer o download de um arquivo .zip.
+Você pode escolher instalar a biblioteca via Composer, via Git, ou fazer o download de um arquivo `.zip`.
 
 ### Via Composer
 
-Para baixar a biblioteca via composer, execute o comando:
+Para baixar a biblioteca via Composer, execute o comando:
 
 ```bash
 composer require raelgc/template
@@ -67,9 +67,9 @@ Para baixar a biblioteca via Git, execute o comando:
 git clone https://github.com/raelgc/template.git
 ```
 
-1 - Você precisa criar uma pasta `lib` no seu projeto
+1 - Crie uma pasta `lib` no seu projeto.
 
-2 - Abra a pasta `template` e copie a pasta `raelgc` (e todo seu conteúdo) para dentro da pasta `lib` do seu projeto
+2 - Abra a pasta `template` e copie a pasta `raelgc` (e todo seu conteúdo) para dentro da pasta `lib` do seu projeto.
 
 3 - Use `require_once` para incluir a classe Template e a diretiva `use` para informar o [namespace](http://www.php.net/manual/pt_BR/language.namespaces.rationale.php) da classe, da seguinte forma:
 
@@ -85,13 +85,13 @@ git clone https://github.com/raelgc/template.git
 
 ### Via Download
 
-Para baixar um arquivo .zip contendo a biblioteca, clique [aqui](https://github.com/raelgc/template/archive/master.zip).
+Para baixar um arquivo `.zip` contendo a biblioteca, clique [aqui](https://github.com/raelgc/template/archive/master.zip).
 
-1 - Descompacte o arquivo .zip
+1 - Descompacte o arquivo `.zip`.
 
-2 - Você precisa criar uma pasta `lib` no seu projeto
+2 - Crie uma pasta `lib` no seu projeto.
 
-3 - Copie a pasta `raelgc` (e todo seu conteúdo) para dentro da pasta `lib` do seu projeto
+3 - Copie a pasta `raelgc` (e todo seu conteúdo) para dentro da pasta `lib` do seu projeto.
 
 4 - Use `require_once` para incluir a classe Template e a diretiva `use` para informar o [namespace](http://www.php.net/manual/pt_BR/language.namespaces.rationale.php) da classe, da seguinte forma:
 
