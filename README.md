@@ -32,27 +32,60 @@ Então, vamos lá.
 25/07/2014 - Adicionando informação sobre escape para variáveis
 13/12/2015 - Suporte a HTML Minificado
 09/02/2016 - Restaurando parâmetro `$append` do método `block()`
-
-## Download
-
-Para baixar a biblioteca escolha entre:
-
-- Usar o git para clonar o repositório (`git clone git@github.com:raelgc/template.git`) ou
-- Baixar o [arquivo .zip](https://github.com/raelgc/template/archive/master.zip).
-
-## Licença
-
-A licença desta biblioteca é regida pela licença LGPL. Ou seja, você pode utilizá-la, como biblioteca, mesmo em projetos comerciais.
-
-Lembre-se apenas de ser uma pessoa legal e enviar de volta eventuais modificações, correções ou melhorias.
+03/03/2018 - Adicionando o arquivo composer.json
 
 
-## Requisitos Necessários
+## Instalação
 
-É preciso usar qualquer versão do PHP igual ou superior a 5.3.
+Você pode escolher instalar a biblioteca via Composer, via Git ou fazer o download de um arquivo .zip.
+
+### Via Composer
+
+Para baixar a biblioteca via composer, execute o comando:
+
+```bash
+composer require raelgc/template
+```
+
+1 - Use `require_once` para incluir o autoload e a diretiva `use` para informar o [namespace](http://www.php.net/manual/pt_BR/language.namespaces.rationale.php) da classe Template, da seguinte forma:
+
+``` php
+<?php
+
+    require_once(__DIR__ . "/vendor/autoload.php");
+    use raelgc\view\Template;
+
+?>
+```
 
 
-## Instalação e Uso
+### Via Git
+
+Para baixar a biblioteca via Git, execute o comando:
+
+```bash
+git clone https://github.com/raelgc/template.git
+```
+
+1 - Você precisa criar uma pasta `lib` no seu projeto
+
+2 - Abra a pasta `template` e copie a pasta `raelgc` (e todo seu conteúdo) para dentro da pasta `lib` do seu projeto
+
+3 - Use `require_once` para incluir a classe Template e a diretiva `use` para informar o [namespace](http://www.php.net/manual/pt_BR/language.namespaces.rationale.php) da classe, da seguinte forma:
+
+``` php
+<?php
+
+    require_once("lib/raelgc/view/Template.php");
+    use raelgc\view\Template;
+
+?>
+```
+
+
+### Via Download
+
+Para baixar um arquivo .zip contendo a biblioteca, clique [aqui](https://github.com/raelgc/template/archive/master.zip).
 
 1 - Descompacte o arquivo .zip
 
@@ -70,6 +103,18 @@ Lembre-se apenas de ser uma pessoa legal e enviar de volta eventuais modificaç�
 
 ?>
 ```
+
+
+## Licença
+
+A licença desta biblioteca é regida pela licença LGPL. Ou seja, você pode utilizá-la, como biblioteca, mesmo em projetos comerciais.
+
+Lembre-se apenas de ser uma pessoa legal e enviar de volta eventuais modificações, correções ou melhorias.
+
+
+## Requisitos Necessários
+
+É preciso usar qualquer versão do PHP igual ou superior a 5.3.
 
 
 ## Exemplo e explicação: Olá Mundo
