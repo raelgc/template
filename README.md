@@ -265,17 +265,17 @@ E o seguinte HTML, já fazendo uso dos modificadores:
 ```html
 <html>
 
-	<head>
-		<title>Exemplo - Modificadores</title>
-		<meta charset="UTF-8">
-	</head>
+  <head>
+    <title>Exemplo - Modificadores</title>
+    <meta charset="UTF-8">
+  </head>
 
-	<body>
+  <body>
 
-		<div>Nome: {NOME|replace:Fulano:Rael}</div>
-		<div>Valor: R$ {VALOR|str_pad:5:0:0},00</div>
+    <div>Nome: {NOME|replace:Fulano:Rael}</div>
+    <div>Valor: R$ {VALOR|str_pad:5:0:0},00</div>
 
-	</body>
+  </body>
 </html>
 ```
 
