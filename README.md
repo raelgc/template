@@ -449,7 +449,6 @@ Vamos agora então juntar os 2 exemplos de uso de blocos que vimos: queremos mos
 
       <tr><td>Nome</td><td>Quantidade</td></tr>
 
-
       <!-- BEGIN BLOCK_DADOS -->
       <tr>
         <td> {NOME} </td>
@@ -941,11 +940,10 @@ Listagem de produtos.
   	<tr><td>Nome</td><td>Quantidade</td></tr>
 
   	<!-- BEGIN BLOCK_DADOS -->
-  		<tr>
-  			<td> {NOME} </td>
-  			<td> {QUANTIDADE} </td>
-  		</tr>
-
+		<tr>
+			<td> {NOME} </td>
+			<td> {QUANTIDADE} </td>
+		</tr>
   	<!-- END BLOCK_DADOS -->
 
   </table>
