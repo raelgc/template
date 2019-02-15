@@ -648,33 +648,33 @@ Agora vamos ao respectivo arquivo PHP:
 ```php
 <?php
 
-	require_once("lib/raelgc/view/Template.php");
+  require_once("lib/raelgc/view/Template.php");
   use raelgc\view\Template;
 
-	$tpl = new Template("index.html");
+  $tpl = new Template("index.html");
 
-	// Array de cidades
-	$cidades = array(0 => "Cidade 0", 1 => "Cidade 1", 2 => "Cidade 2");
+  // Array de cidades
+  $cidades = array(0 => "Cidade 0", 1 => "Cidade 1", 2 => "Cidade 2");
 
-	// Valor selecionado
-	$atual = 1;
+  // Valor selecionado
+  $atual = 1;
 
-	foreach($cidades as $value => $text){
+  foreach($cidades as $value => $text){
 
-		$tpl->VALUE = $value;
-		$tpl->TEXT = $text;
+    $tpl->VALUE = $value;
+    $tpl->TEXT = $text;
 
-		// Vendo se a opção atual deve ter o atributo "selected"
-		if($atual == $value) $tpl->SELECTED = "selected";
+    // Vendo se a opção atual deve ter o atributo "selected"
+    if($atual == $value) $tpl->SELECTED = "selected";
 
-		// Caso esta não seja a opção atual, limpamos o valor da variável SELECTED
-		else $tpl->clear("SELECTED");
+    // Caso esta não seja a opção atual, limpamos o valor da variável SELECTED
+    else $tpl->clear("SELECTED");
 
-		$tpl->block("BLOCK_OPTION");
+    $tpl->block("BLOCK_OPTION");
 
-	}
+  }
 
-	$tpl->show();
+  $tpl->show();
 
 ?>
 ```
