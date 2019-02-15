@@ -46,8 +46,8 @@ composer require raelgc/template
 ```php
 <?php
 
-    require_once(__DIR__ . "/vendor/autoload.php");
-    use raelgc\view\Template;
+  require_once(__DIR__ . "/vendor/autoload.php");
+  use raelgc\view\Template;
 
 ?>
 ```
@@ -70,8 +70,8 @@ git clone https://github.com/raelgc/template.git
 ```php
 <?php
 
-    require_once("lib/raelgc/view/Template.php");
-    use raelgc\view\Template;
+  require_once("lib/raelgc/view/Template.php");
+  use raelgc\view\Template;
 
 ?>
 ```
@@ -92,8 +92,8 @@ Para baixar um arquivo `.zip` contendo a biblioteca, clique [aqui](https://githu
 ```php
 <?php
 
-    require_once("lib/raelgc/view/Template.php");
-    use raelgc\view\Template;
+  require_once("lib/raelgc/view/Template.php");
+  use raelgc\view\Template;
 
 ?>
 ```
