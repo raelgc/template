@@ -16,24 +16,9 @@ Eu inclusive traduzi os comentários dos métodos/funções públicos para facil
 Então, vamos lá.
 
 
-## Histórico
+## Changelog
 
-26/02/2008 - Versão inicial do Tutorial  
-10/08/2008 - Adicionadas informações sobre html select  
-04/05/2009 - Renomeados: método `parseBlock()` para `block()`, `getContent()` para `parse()`, `clearVar` para `clear()`  
-05/05/2009 - Valor do parâmetro `$append` do método `block()` alterado para `true`  
-07/05/2009 - Substituídas Exceptions genéricas pelas Exceptions da SPL  
-20/07/2009 - Adicionado suporte a comentários e pequena melhora no desempenho  
-06/04/2010 - Adicionado método exists() para checar existência de uma variável  
-17/10/2012 - Suporte a arquivos PHP no método addFile()  
-25/02/2014 - Movendo para o [Github](https://github.com/raelgc/template)  
-26/02/2014 - Versão 2.0: [suporte a namespace](#instala%C3%A7%C3%A3o-e-uso), [blocos finally](#blocos-finally), [parser automático de blocos pai](#blocos-autom%C3%A1ticos-por-padr%C3%A3o), [modificadores](#vari%C3%A1veis-com-modificadores)  
-27/06/2014 - Versão 2.2: Arrumando ordem de leitura dos atributos de uma classe (obrigado @eduardoeldorado)  
-25/07/2014 - Adicionando informação sobre escape para variáveis
-13/12/2015 - Suporte a HTML Minificado
-09/02/2016 - Restaurando parâmetro `$append` do método `block()`
-03/03/2018 - Adicionando o arquivo composer.json
-
+Por favor, cheque o arquivo de [CHANGELOG](CHANGELOG.md).
 
 ## Instalação
 
