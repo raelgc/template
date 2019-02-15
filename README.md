@@ -1099,23 +1099,23 @@ E pronto: no HTML final `{CONTEUDO}` ainda estará presente.
 
 Abaixo estão os significados para as mensagens de erro exibidas pela classe Template:
 
-`Parse error: syntax error, unexpected T_STRING, expecting T_OLD_FUNCTION or T_FUNCTION or T_VAR or '}'`: provavelmente você está usando PHP 4 (veja os requisitos necessários para usar esta biblioteca).
+* `Parse error: syntax error, unexpected T_STRING, expecting T_OLD_FUNCTION or T_FUNCTION or T_VAR or '}'`: provavelmente você está usando PHP 4 (veja os requisitos necessários para usar esta biblioteca).
 
-`addFile: var <varname> não existe`: você está usando o método addFile() para adicionar um arquivo HTML (ou equivalente), mas a variável de template na qual você quer jogar o conteúdo, não existe.
+* `addFile: var <varname> não existe`: você está usando o método addFile() para adicionar um arquivo HTML (ou equivalente), mas a variável de template na qual você quer jogar o conteúdo, não existe.
 
-`var <varname> não existe`: você está tentando atribuir valor a uma variável que não existe. Certifique-se de que o nome da variável de template está correto, e que você está utilizando como nome desta variável somente letras, números e underscore, entre chaves.
+* `var <varname> não existe`: você está tentando atribuir valor a uma variável que não existe. Certifique-se de que o nome da variável de template está correto, e que você está utilizando como nome desta variável somente letras, números e underscore, entre chaves.
 
-`arquivo <filename> não existe`: você está informando o caminho para um arquivo HTML (ou equivalente) que não existe, ou cuja permissão de leitura é negada.
+* `arquivo <filename> não existe`: você está informando o caminho para um arquivo HTML (ou equivalente) que não existe, ou cuja permissão de leitura é negada.
 
-`arquivo <filename> está vazio`: o arquivo HTML (ou equivalente) que você está passando como parâmetro está vazio. Se está vazio, ou você está informando um arquivo errado, ou esqueceu de colocar conteúdo nele.
+* `arquivo <filename> está vazio`: o arquivo HTML (ou equivalente) que você está passando como parâmetro está vazio. Se está vazio, ou você está informando um arquivo errado, ou esqueceu de colocar conteúdo nele.
 
-`bloco duplicado: <blockname>`: o nome que você está tentando atribuir ao bloco já foi dado para outro bloco. Lembre-se que o nome do blocos deve ser único. Se você estiver usando mais de um arquivo HTML (ou equivalente), o bloco com o mesmo nome que o seu pode estar em um dos outros arquivo.
+* `bloco duplicado: <blockname>`: o nome que você está tentando atribuir ao bloco já foi dado para outro bloco. Lembre-se que o nome do blocos deve ser único. Se você estiver usando mais de um arquivo HTML (ou equivalente), o bloco com o mesmo nome que o seu pode estar em um dos outros arquivo.
 
-`bloco <blockname> está mal formado`: o bloco que você declarou está com defeitos. Talvez você tenha usado a tag `BEGIN BLOCK` com um nome, e tenha terminado (a tag `END BLOCK`) com outro. Ou então, esqueceu da tag `END BLOCK`. Ou tenha colocado a tag `FINALLY BLOCK` em local errado.
+* `bloco <blockname> está mal formado`: o bloco que você declarou está com defeitos. Talvez você tenha usado a tag `BEGIN BLOCK` com um nome, e tenha terminado (a tag `END BLOCK`) com outro. Ou então, esqueceu da tag `END BLOCK`. Ou tenha colocado a tag `FINALLY BLOCK` em local errado.
 
-`bloco <blockname> não existe`: você está informando ao método `block()` o nome de um bloco que não existe. Certifique-se de que o nome do bloco está correto, e que você está utilizando como nome deste bloco somente letras, números e underscore.
+* `bloco <blockname> não existe`: você está informando ao método `block()` o nome de um bloco que não existe. Certifique-se de que o nome do bloco está correto, e que você está utilizando como nome deste bloco somente letras, números e underscore.
 
-`não existe método na classe <classname> para acessar <objeto>-><propriedade>`: não existe método para acessar a propriedade que você está chamando. Se você chamar no HTML por `OBJETO->NOME`, a classe deste objeto precisa ter um método chamado getNome() ou isNome(). Veja maiores detalhes na seção "Usando Objetos".
+* `não existe método na classe <classname> para acessar <objeto>-><propriedade>`: não existe método para acessar a propriedade que você está chamando. Se você chamar no HTML por `OBJETO->NOME`, a classe deste objeto precisa ter um método chamado getNome() ou isNome(). Veja maiores detalhes na seção "Usando Objetos".
 
 
 ## Precisão e Desempenho
