@@ -685,13 +685,13 @@ Como resultado, o navegador exibirá o seguinte código:
 <html>
   <body>
 
-  	<select name="cidades">
+    <select name="cidades">
 
-  		<option value="0" >Cidade 0</option>
-  		<option value="1" selected>Cidade 1</option>
-  		<option value="2" >Cidade 2</option>
+      <option value="0" >Cidade 0</option>
+      <option value="1" selected>Cidade 1</option>
+      <option value="2" >Cidade 2</option>
 
-  	</select>
+    </select>
 
   </body>
 </html>
@@ -703,13 +703,13 @@ Reparou que no arquivo PHP chamamos o método `clear`? Se não chamarmos este m�
 <html>
   <body>
 
-  	<select name="cidades">
+    <select name="cidades">
 
-  		<option value="0" selected>Cidade 0</option>
-  		<option value="1" selected>Cidade 1</option>
-  		<option value="2" selected>Cidade 2</option>
+      <option value="0" selected>Cidade 0</option>
+      <option value="1" selected>Cidade 1</option>
+      <option value="2" selected>Cidade 2</option>
 
-  	</select>
+    </select>
 
   </body>
 </html>
@@ -742,27 +742,26 @@ Como fazer isso com templates? Em primeiro lugar, vamos criar nosso arquivo "bas
 Agora, vamos criar o arquivo que contém o "miolo" de nossa página HTML, o arquivo miolo.html:
 
 ```html
+<p>Produtos cadastrados no sistema:</p>
 
-  <p>Produtos cadastrados no sistema:</p>
+<!-- BEGIN BLOCK_PRODUTOS -->
+<table border="1">
 
-  <!-- BEGIN BLOCK_PRODUTOS -->
-  <table border="1">
+  <tr><td>Nome</td><td>Quantidade</td></tr>
 
-    <tr><td>Nome</td><td>Quantidade</td></tr>
+  <!-- BEGIN BLOCK_DADOS -->
+  <tr>
+    <td> {NOME} </td>
+    <td> {QUANTIDADE} </td>
+  </tr>
+  <!-- END BLOCK_DADOS -->
 
-    <!-- BEGIN BLOCK_DADOS -->
-    <tr>
-      <td> {NOME} </td>
-      <td> {QUANTIDADE} </td>
-    </tr>
-    <!-- END BLOCK_DADOS -->
+</table>
+<!-- END BLOCK_PRODUTOS -->
 
-  </table>
-  <!-- END BLOCK_PRODUTOS -->
+<div class="vazio">Nenhum registro encontrado.</div>
 
-  <div class="vazio">Nenhum registro encontrado.</div>
-
-  <!-- FINALLY BLOCK_PRODUTOS -->
+<!-- FINALLY BLOCK_PRODUTOS -->
 
 ```
 
@@ -844,33 +843,33 @@ Primeiro, vamos a um exemplo de classe Produtos retirado diretamente dos [exempl
 ```php
 <?php
 
-	// src/Product.php
-	class Product
-	{
-		/**
-		 * @var int
-		 */
-		protected $id;
-		/**
-		 * @var string
-		 */
-		protected $name;
+  // src/Product.php
+  class Product
+  {
+    /**
+    * @var int
+    */
+    protected $id;
+    /**
+    * @var string
+    */
+    protected $name;
 
-		public function getId()
-		{
-			return $this->id;
-		}
+    public function getId()
+    {
+      return $this->id;
+    }
 
-		public function getName()
-		{
-			return $this->name;
-		}
+    public function getName()
+    {
+      return $this->name;
+    }
 
-		public function setName($name)
-		{
-			$this->name = $name;
-		}
-	}
+    public function setName($name)
+    {
+      $this->name = $name;
+    }
+  }
 
 ?>
 ```
@@ -937,14 +936,14 @@ Listagem de produtos.
   <!-- BEGIN BLOCK_PRODUTOS -->
   <table border="1">
 
-  	<tr><td>Nome</td><td>Quantidade</td></tr>
+    <tr><td>Nome</td><td>Quantidade</td></tr>
 
-  	<!-- BEGIN BLOCK_DADOS -->
-		<tr>
-			<td> {NOME} </td>
-			<td> {QUANTIDADE} </td>
-		</tr>
-  	<!-- END BLOCK_DADOS -->
+    <!-- BEGIN BLOCK_DADOS -->
+    <tr>
+      <td>{NOME}</td>
+      <td>{QUANTIDADE}</td>
+    </tr>
+    <!-- END BLOCK_DADOS -->
 
   </table>
   <!-- END BLOCK_PRODUTOS -->
