@@ -1,4 +1,5 @@
-13/02/2018 - Atualizando composer para suportar novo esquema de versionamento.  
+15/02/2018 - Melhorando o markdown do arquivo README  
+13/02/2018 - Atualizando composer para suportar novo esquema de versionamento  
 03/03/2018 - Adicionando o arquivo composer.json  
 09/02/2016 - Restaurando parâmetro `$append` do método `block()`  
 13/12/2015 - Suporte a HTML Minificado  
