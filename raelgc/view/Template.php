@@ -15,7 +15,7 @@ namespace raelgc\view {
 	 * minor features.
 	 *
 	 * @author Rael G.C. (rael.gc@gmail.com)
-	 * @version 2.2.3
+	 * @version 2.2.4
 	 */
 	class Template {
 
@@ -414,12 +414,14 @@ namespace raelgc\view {
 						for($i = 1; $i < sizeof($property); $i++){
 							if(!is_null($pointer)){
 								$obj = strtolower(str_replace('_', '', $property[$i]));
+								$obj2 = $property[$i];
 								// Get accessor
 								if(method_exists($pointer, "get$obj")) $pointer = $pointer->{"get$obj"}();
 								// Magic __get accessor
 								elseif(method_exists($pointer, "__get")) $pointer = $pointer->__get($property[$i]);
 								// Property acessor
 								elseif(property_exists($pointer, $obj)) $pointer = $pointer->$obj;
+								elseif(property_exists($pointer, $obj2)) $pointer = $pointer->$obj2;
 								else {
 									$className = $property[$i-1] ? $property[$i-1] : get_class($instance);
 									$class = is_null($pointer) ? "NULL" : get_class($pointer);
