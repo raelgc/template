@@ -15,7 +15,7 @@ namespace raelgc\view {
 	 * minor features.
 	 *
 	 * @author Rael G.C. (rael.gc@gmail.com)
-	 * @version 2.2.4
+	 * @version 2.2.5
 	 */
 	class Template {
 
@@ -169,7 +169,7 @@ namespace raelgc\view {
 		 *
 		 * @return    void
 		 */
-		private function loadfile($varname, $filename) {
+		protected function loadfile($varname, $filename) {
 			if (!file_exists($filename)) throw new \InvalidArgumentException("file $filename does not exist");
 			// If it's PHP file, parse it
 			if($this->isPHP($filename)){
@@ -191,7 +191,7 @@ namespace raelgc\view {
 		/**
 		 * Check if file is a .php
 		 */
-		private function isPHP($filename){
+		protected function isPHP($filename){
 			foreach(array('.php', '.php5', '.cgi') as $php){
 				if(0 == strcasecmp($php, substr($filename, strripos($filename, $php)))) return true;
 			}
@@ -211,7 +211,7 @@ namespace raelgc\view {
 		 * @return    array		an array where the key is the block name and the value is an
 		 * 						array with the children block names.
 		 */
-		private function identify(&$content, $varname){
+		protected function identify(&$content, $varname){
 			$blocks = array();
 			$queued_blocks = array();
 			$this->identifyVars($content);
@@ -237,7 +237,7 @@ namespace raelgc\view {
 		 *
 		 * @return    void
 		 */
-		private function identifyBlocks(&$line, $varname, &$queued_blocks, &$blocks){
+		protected function identifyBlocks(&$line, $varname, &$queued_blocks, &$blocks){
 			$reg = "/<!--\s*BEGIN\s+(".self::$REG_NAME.")\s*-->/sm";
 			preg_match($reg, $line, $m);
 			if (1==preg_match($reg, $line, $m)){
@@ -258,7 +258,7 @@ namespace raelgc\view {
 		 *
 		 * @param     string $content	file content
 		 */
-		private function identifyVars(&$content){
+		protected function identifyVars(&$content){
 			$r = preg_match_all("/{(".self::$REG_NAME.")((\-\>(".self::$REG_NAME."))*)?((\|.*?)*)?}/", $content, $m);
 			if ($r){
 				for($i=0; $i<$r; $i++){
@@ -284,7 +284,7 @@ namespace raelgc\view {
 		 * @param     array $blocks		contains all identified block names
 		 * @return    void
 		 */
-		private function createBlocks(&$blocks) {
+		protected function createBlocks(&$blocks) {
 			$this->parents = array_merge($this->parents, $blocks);
 			foreach($blocks as $parent => $block){
 				foreach($block as $chield){
@@ -307,7 +307,7 @@ namespace raelgc\view {
 		 * @param     string $block		contains the name of the block to be replaced
 		 * @return    void
 		 */
-		private function setBlock($parent, $block) {
+		protected function setBlock($parent, $block) {
 			$name = $block.'_value';
 			$str = $this->getVar($parent);
 			if($this->accurate){
@@ -343,7 +343,7 @@ namespace raelgc\view {
 		 * @param     string	$varname	the name of the variable to get the value of
 		 * @return    string	the value of the variable passed as argument
 		 */
-		private function getVar($varname) {
+		protected function getVar($varname) {
 			return $this->values['{'.$varname.'}'];
 		}
 
@@ -376,7 +376,7 @@ namespace raelgc\view {
 		 * @param $exp
 		 * @return unknown_type
 		 */
-		private function substModifiers($value, $exp){
+		protected function substModifiers($value, $exp){
 			$statements = explode('|', $exp);
 			for($i=1; $i<sizeof($statements); $i++){
 				$temp = explode(":", $statements[$i]);

@@ -1,3 +1,4 @@
+14/04/2020 - Todos os métodos `private` foram convertidos para `protected`
 13/04/2020 - Aceitando atributos de objetos em camelCase e snake_case
 15/02/2019 - Melhorando o markdown do arquivo README  
 13/02/2019 - Atualizando composer para suportar novo esquema de versionamento  
