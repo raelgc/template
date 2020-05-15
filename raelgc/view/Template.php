@@ -15,7 +15,7 @@ namespace raelgc\view {
 	 * minor features.
 	 *
 	 * @author Rael G.C. (rael.gc@gmail.com)
-	 * @version 2.2.5
+	 * @version 2.2.6
 	 */
 	class Template {
 
@@ -432,7 +432,7 @@ namespace raelgc\view {
 						}
 						// Checking if final value is an object...
 						if(is_object($pointer)){
-							$pointer = method_exists($pointer, "__toString") ? $pointer->__toString() : "Object";
+							$pointer_str = method_exists($pointer, "__toString") ? $pointer->__toString() : json_encode($pointer);
 						// ... or an array
 						} elseif(is_array($pointer)){
 							$value = "";
@@ -440,10 +440,10 @@ namespace raelgc\view {
 								$value.= "$key => $val";
 								if($i<sizeof($pointer)-1) $value.= ",";
 							}
-							$pointer = $value;
+							$pointer_str = $value;
 						}
 						// Replacing value
-						$s = str_replace("{".$var.$properties."}", $pointer, $s);
+						$s = str_replace("{".$var.$properties."}", $pointer_str, $s);
 						// Object with modifiers
 						if(isset($this->modifiers[$var.$properties])){
 							foreach($this->modifiers[$var.$properties] as $exp){

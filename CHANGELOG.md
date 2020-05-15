@@ -1,5 +1,6 @@
-14/04/2020 - Todos os métodos `private` foram convertidos para `protected`
-13/04/2020 - Aceitando atributos de objetos em camelCase e snake_case
+15/05/2020 - Fix #38 - Se a variável é objeto, mostra o json ao invés da palavra "Object"  
+14/04/2020 - Todos os métodos `private` foram convertidos para `protected`  
+13/04/2020 - Aceitando atributos de objetos em camelCase e snake_case  
 15/02/2019 - Melhorando o markdown do arquivo README  
 13/02/2019 - Atualizando composer para suportar novo esquema de versionamento  
 03/03/2018 - Adicionando o arquivo composer.json  
