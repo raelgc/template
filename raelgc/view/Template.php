@@ -441,6 +441,8 @@ namespace raelgc\view {
 								if($i<sizeof($pointer)-1) $value.= ",";
 							}
 							$pointer_str = $value;
+						} else {
+							$pointer_str = $pointer;
 						}
 						// Replacing value
 						$s = str_replace("{".$var.$properties."}", $pointer_str, $s);
