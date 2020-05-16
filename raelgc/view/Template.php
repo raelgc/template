@@ -15,7 +15,7 @@ namespace raelgc\view {
 	 * minor features.
 	 *
 	 * @author Rael G.C. (rael.gc@gmail.com)
-	 * @version 2.2.6
+	 * @version 2.2.7
 	 */
 	class Template {
 
