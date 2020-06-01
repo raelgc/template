@@ -13,5 +13,8 @@
   },
   "autoload": {
     "psr-4": { "raelgc\\": "raelgc" }
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^8"
   }
 }
