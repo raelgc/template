@@ -11,5 +11,13 @@ final class TemplateTest extends TestCase {
 		$this->assertEquals(trim($tpl->parse()), 'bar');
 	}
 
+	public function testSimpleObject(): void {
+		$tpl = new Template(__DIR__.'/simple_object.html' );
+		$foo = new stdClass;
+		$foo->bar = 'foobar';
+		$tpl->FOO = $foo;
+		$this->assertEquals(trim($tpl->parse()), "foobar");
+	}
+
 }
 
