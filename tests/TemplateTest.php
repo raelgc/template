@@ -18,5 +18,15 @@ final class TemplateTest extends TestCase {
 		$tpl->FOO = $foo;
 		$this->assertEquals(trim($tpl->parse()), "foobar");
 	}
+
+	public function testFailureSimpleObjectCaseMismatch(): void {
+		$this->expectException(RuntimeException::class);
+		$tpl = new Template(__DIR__.'/simple_object.html' );
+		$foo = new stdClass;
+		$foo->bar = 'foobar';
+		// foo is set lowercase but template calls FOO (uppercase)
+		$tpl->foo = $foo;
+		$tpl->parse();
+	}
 }
 
