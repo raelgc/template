@@ -18,6 +18,5 @@ final class TemplateTest extends TestCase {
 		$tpl->FOO = $foo;
 		$this->assertEquals(trim($tpl->parse()), "foobar");
 	}
-
 }
 
