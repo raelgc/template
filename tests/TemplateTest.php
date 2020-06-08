@@ -1,4 +1,4 @@
-<?php declare(strict_types=1);
+<?php
 require_once('raelgc/view/Template.php');
 use PHPUnit\Framework\TestCase;
 use raelgc\view\Template;
