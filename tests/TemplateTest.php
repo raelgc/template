@@ -11,6 +11,19 @@ final class TemplateTest extends TestCase {
 		$this->assertEquals(trim($tpl->parse()), 'bar');
 	}
 
+        public function testUnparsedBlock() {
+                $tpl = new Template(__DIR__.'/simple_block.html' );
+                $tpl->FOO = 'bar';
+                $this->assertEquals(trim($tpl->parse()), '');
+        }
+
+        public function testSimpleBlock() {
+                $tpl = new Template(__DIR__.'/simple_block.html' );
+                $tpl->FOO = 'bar';
+                $tpl->block("BLOCK_SIMPLE"); 
+                $this->assertEquals(trim($tpl->parse()), 'Text with VAR: bar');
+        }
+
 	public function testSimpleObject() {
 		$tpl = new Template(__DIR__.'/simple_object.html' );
 		$foo = new stdClass;
@@ -29,4 +42,3 @@ final class TemplateTest extends TestCase {
 		$tpl->parse();
 	}
 }
-
