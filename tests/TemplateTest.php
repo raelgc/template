@@ -5,13 +5,13 @@ use raelgc\view\Template;
 
 final class TemplateTest extends TestCase {
 
-	public function testSimpleVar(): void {
+	public function testSimpleVar() {
 		$tpl = new Template(__DIR__.'/simple_var.html' );
 		$tpl->FOO = 'bar';
 		$this->assertEquals(trim($tpl->parse()), 'bar');
 	}
 
-	public function testSimpleObject(): void {
+	public function testSimpleObject() {
 		$tpl = new Template(__DIR__.'/simple_object.html' );
 		$foo = new stdClass;
 		$foo->bar = 'foobar';
@@ -19,7 +19,7 @@ final class TemplateTest extends TestCase {
 		$this->assertEquals(trim($tpl->parse()), "foobar");
 	}
 
-	public function testFailureSimpleObjectCaseMismatch(): void {
+	public function testFailureSimpleObjectCaseMismatch() {
 		$this->expectException(RuntimeException::class);
 		$tpl = new Template(__DIR__.'/simple_object.html' );
 		$foo = new stdClass;
