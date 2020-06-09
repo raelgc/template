@@ -11,6 +11,23 @@ final class TemplateTest extends TestCase {
 		$this->assertEquals(trim($tpl->parse()), 'bar');
 	}
 
+	public function testIfVarExists() {
+		$tpl = new Template(__DIR__.'/simple_var.html' );
+		if ($tpl->exists('FOO')) {
+			$tpl->FOO = 'bar';
+		}
+		$this->assertEquals('bar', trim($tpl->parse()));
+	}
+
+	public function testIfVarDoNotExists() {
+		$tpl = new Template(__DIR__.'/simple_var.html' );
+		// variables are casesensitive
+		if ($tpl->exists('foo')) {
+			$tpl->foo = 'bar';
+		}
+		$this->assertEquals('', trim($tpl->parse()));
+	}
+
         public function testUnparsedBlock() {
                 $tpl = new Template(__DIR__.'/simple_block.html' );
                 $tpl->FOO = 'bar';
