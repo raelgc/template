@@ -33,6 +33,12 @@ final class TemplateTest extends TestCase
 		$this->assertEquals('', trim($tpl->parse()));
 	}
 
+	public function testModifiers() {
+		$tpl = new Template(__DIR__ . '/modifier.html');
+		$tpl->foo = 'Bar';
+		$this->assertEquals('Baz', trim($tpl->parse()));
+	}
+
 	public function testUnparsedBlock()
 	{
 		$tpl = new Template(__DIR__ . '/simple_block.html');
