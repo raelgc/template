@@ -54,6 +54,16 @@ final class TemplateTest extends TestCase
 		$this->assertEquals('Text with VAR: bar', trim($tpl->parse()));
 	}
 
+	public function testLoopBlock()
+	{
+		$tpl = new Template(__DIR__ . '/simple_block.html');
+		$tpl->FOO = 'bar';
+		$tpl->block("BLOCK_SIMPLE");
+		$tpl->FOO = 'baz';
+		$tpl->block("BLOCK_SIMPLE");
+		$this->assertEquals("Text with VAR: bar\nText with VAR: baz", trim($tpl->parse()));
+	}
+
 	public function testSimpleObject()
 	{
 		$tpl = new Template(__DIR__ . '/simple_object.html');
