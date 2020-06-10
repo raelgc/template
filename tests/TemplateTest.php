@@ -51,17 +51,21 @@ final class TemplateTest extends TestCase
 		$tpl = new Template(__DIR__ . '/simple_block.html');
 		$tpl->FOO = 'bar';
 		$tpl->block("BLOCK_SIMPLE");
-		$this->assertEquals('Text with VAR: bar', trim($tpl->parse()));
-	}
-
-	public function testLoopBlock()
-	{
-		$tpl = new Template(__DIR__ . '/simple_block.html');
-		$tpl->FOO = 'bar';
-		$tpl->block("BLOCK_SIMPLE");
 		$tpl->FOO = 'baz';
 		$tpl->block("BLOCK_SIMPLE");
 		$this->assertEquals("Text with VAR: bar\nText with VAR: baz", trim($tpl->parse()));
+	}
+
+	public function testNestedBlocks()
+	{
+		$tpl = new Template(__DIR__ . '/nested_block.html');
+		$tpl->OUT_TOP_VAR = 'foo';
+		$tpl->OUT_BOTTOM_VAR = 'bar';
+		$tpl->INNER_VAR = 'baz';
+		$tpl->block("BLOCK_INNER");
+		$tpl->INNER_VAR = 'qux';
+		$tpl->block("BLOCK_INNER");
+		$this->assertEquals("Out top content with foo\nInner content with baz-\nInner content with qux-\nOut bottom content with bar", trim($tpl->parse()));
 	}
 
 	public function testSimpleObject()
