@@ -68,6 +68,12 @@ final class TemplateTest extends TestCase
 		$this->assertEquals("Out top content with foo\nInner content with baz-\nInner content with qux-\nOut bottom content with bar", trim($tpl->parse()));
 	}
 
+        public function testFinallyBlock()
+        {
+                $tpl = new Template(__DIR__ . '/finally_block.html');
+                $this->assertEquals('Content in finally block', trim($tpl->parse()));
+        }
+
 	public function testSimpleObject()
 	{
 		$tpl = new Template(__DIR__ . '/simple_object.html');
