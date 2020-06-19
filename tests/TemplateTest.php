@@ -83,6 +83,17 @@ final class TemplateTest extends TestCase
                 $this->assertEquals('Content in finally block', trim($tpl->parse()));
         }
 
+        public function testClearVarBlock()
+        {
+                $tpl = new Template(__DIR__ . '/clear_var_in_block.html');
+                $tpl->VALUE = 'foo';
+                $tpl->SELECTED = 'selected';
+                $tpl->block('BLOCK_OPTION');
+                $tpl->clear('SELECTED');
+                $tpl->block('BLOCK_OPTION');
+                $this->assertEquals("Test if foo is selected\nTest if foo is", trim($tpl->parse()));
+        }
+
 	public function testSimpleObject()
 	{
 		$tpl = new Template(__DIR__ . '/simple_object.html');
