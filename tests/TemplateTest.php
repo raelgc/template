@@ -94,6 +94,14 @@ final class TemplateTest extends TestCase
                 $this->assertEquals("Test if foo is selected\nTest if foo is", trim($tpl->parse()));
         }
 
+        public function testMultipleFiles()
+        {
+                $tpl = new Template(__DIR__ . '/multiple_files_parent.html');
+                $tpl->addFile('CONTENT', __DIR__ . '/multiple_files_child.html');
+                $tpl->VAR = 'foo';
+                $this->assertEquals("<div><p>foo</p>\n</div>", trim($tpl->parse()));
+        }
+
 	public function testSimpleObject()
 	{
 		$tpl = new Template(__DIR__ . '/simple_object.html');
