@@ -121,4 +121,17 @@ final class TemplateTest extends TestCase
 		$tpl->foo = $foo;
 		$tpl->parse();
 	}
+
+        public function testComments()
+        {
+                $tpl = new Template(__DIR__ . '/comments.html');
+                $tpl->OUT_TOP_VAR = 'foo';
+                $tpl->OUT_BOTTOM_VAR = 'bar';
+                $tpl->INNER_VAR = 'baz';
+                $tpl->block("BLOCK_INNER");
+                $tpl->INNER_VAR = 'qux';
+                $tpl->block("BLOCK_INNER");
+                $this->assertEquals("Out top content with foo\nInner content with baz-\nInner content with qux-\nOut bottom content with bar", trim($tpl->parse()));
+        }
+
 }
