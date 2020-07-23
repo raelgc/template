@@ -134,4 +134,10 @@ final class TemplateTest extends TestCase
                 $this->assertEquals("Out top content with foo\nInner content with baz-\nInner content with qux-\nOut bottom content with bar", trim($tpl->parse()));
         }
 
+        public function testEscapeVar()
+        {
+                $tpl = new Template(__DIR__ . '/escape_var.html');
+                $this->assertEquals("This is an escaped var:\n{FOO}", trim($tpl->parse()));
+        }
+
 }
