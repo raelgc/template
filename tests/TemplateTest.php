@@ -68,39 +68,39 @@ final class TemplateTest extends TestCase
 		$this->assertEquals("Out top content with foo\nInner content with baz-\nInner content with qux-\nOut bottom content with bar", trim($tpl->parse()));
 	}
 
-        public function testUnparsedFinallyBlock()
-        {
-                $tpl = new Template(__DIR__ . '/finally_block.html');
-                $tpl->FOO = 'bar';
-                $tpl->block("BLOCK_SIMPLE");
-                $this->assertEquals('Text with VAR: bar', trim($tpl->parse()));
-        }
+	public function testUnparsedFinallyBlock()
+	{
+		$tpl = new Template(__DIR__ . '/finally_block.html');
+		$tpl->FOO = 'bar';
+		$tpl->block("BLOCK_SIMPLE");
+		$this->assertEquals('Text with VAR: bar', trim($tpl->parse()));
+	}
 
 
-        public function testFinallyBlock()
-        {
-                $tpl = new Template(__DIR__ . '/finally_block.html');
-                $this->assertEquals('Content in finally block', trim($tpl->parse()));
-        }
+	public function testFinallyBlock()
+	{
+		$tpl = new Template(__DIR__ . '/finally_block.html');
+		$this->assertEquals('Content in finally block', trim($tpl->parse()));
+	}
 
-        public function testClearVarBlock()
-        {
-                $tpl = new Template(__DIR__ . '/clear_var_in_block.html');
-                $tpl->VALUE = 'foo';
-                $tpl->SELECTED = 'selected';
-                $tpl->block('BLOCK_OPTION');
-                $tpl->clear('SELECTED');
-                $tpl->block('BLOCK_OPTION');
-                $this->assertEquals("Test if foo is selected\nTest if foo is", trim($tpl->parse()));
-        }
+	public function testClearVarBlock()
+	{
+		$tpl = new Template(__DIR__ . '/clear_var_in_block.html');
+		$tpl->VALUE = 'foo';
+		$tpl->SELECTED = 'selected';
+		$tpl->block('BLOCK_OPTION');
+		$tpl->clear('SELECTED');
+		$tpl->block('BLOCK_OPTION');
+		$this->assertEquals("Test if foo is selected\nTest if foo is", trim($tpl->parse()));
+	}
 
-        public function testMultipleFiles()
-        {
-                $tpl = new Template(__DIR__ . '/multiple_files_parent.html');
-                $tpl->addFile('CONTENT', __DIR__ . '/multiple_files_child.html');
-                $tpl->VAR = 'foo';
-                $this->assertEquals("<div><p>foo</p>\n</div>", trim($tpl->parse()));
-        }
+	public function testMultipleFiles()
+	{
+		$tpl = new Template(__DIR__ . '/multiple_files_parent.html');
+		$tpl->addFile('CONTENT', __DIR__ . '/multiple_files_child.html');
+		$tpl->VAR = 'foo';
+		$this->assertEquals("<div><p>foo</p>\n</div>", trim($tpl->parse()));
+	}
 
 	public function testSimpleObject()
 	{
@@ -109,6 +109,70 @@ final class TemplateTest extends TestCase
 		$foo->bar = 'foobar';
 		$tpl->FOO = $foo;
 		$this->assertEquals('foobar', trim($tpl->parse()));
+	}
+
+	public function testObjectWithGetter()
+	{
+		$tpl = new Template(__DIR__ . '/simple_object.html');
+		$foo = new class {
+			private $bar;
+			public function setBar($bar) {
+				$this->bar = $bar;
+			}
+			public function getBar() { 
+				return $this->bar;
+			}
+		};
+		$foo->setBar('foobar');
+		$tpl->FOO = $foo;
+		$this->assertEquals('foobar', trim($tpl->parse()));
+	}
+
+	public function testObjectWithMagicGet()
+	{
+		$tpl = new Template(__DIR__ . '/simple_object.html');
+		$foo = new class {
+			private $bar;
+			public function setBar($bar) {
+				$this->bar = $bar;
+			}
+			public function __get($var) { 
+				return $this->bar;
+			}
+		};
+		$foo->setBar('foobar');
+		$tpl->FOO = $foo;
+		$this->assertEquals('foobar', trim($tpl->parse()));
+	}
+
+	public function testObjectWithToString()
+	{
+		$tpl = new Template(__DIR__ . '/simple_var.html');
+		$foo = new class {
+			public function setBar($bar) {
+				$this->bar = $bar;
+			}
+			public function __toString() { 
+				return $this->bar;
+			}
+		};
+		$foo->setBar('foobar');
+		$tpl->FOO = $foo;
+		$this->assertEquals('foobar', trim($tpl->parse()));
+	}
+
+
+	public function testObjectParse()
+	{
+		$tpl = new Template(__DIR__ . '/simple_var.html');
+		$foo = new class {
+			public function setBar($bar) {
+				$this->bar = $bar;
+			}
+		};
+		$foo->setBar('foobar');
+		$tpl->FOO = $foo;
+		$this->assertEquals('Object', trim($tpl->parse()));
 	}
 
 	public function testFailureSimpleObjectCaseMismatch()
@@ -122,22 +186,22 @@ final class TemplateTest extends TestCase
 		$tpl->parse();
 	}
 
-        public function testComments()
-        {
-                $tpl = new Template(__DIR__ . '/comments.html');
-                $tpl->OUT_TOP_VAR = 'foo';
-                $tpl->OUT_BOTTOM_VAR = 'bar';
-                $tpl->INNER_VAR = 'baz';
-                $tpl->block("BLOCK_INNER");
-                $tpl->INNER_VAR = 'qux';
-                $tpl->block("BLOCK_INNER");
-                $this->assertEquals("Out top content with foo\nInner content with baz-\nInner content with qux-\nOut bottom content with bar", trim($tpl->parse()));
-        }
+	public function testComments()
+	{
+		$tpl = new Template(__DIR__ . '/comments.html');
+		$tpl->OUT_TOP_VAR = 'foo';
+		$tpl->OUT_BOTTOM_VAR = 'bar';
+		$tpl->INNER_VAR = 'baz';
+		$tpl->block("BLOCK_INNER");
+		$tpl->INNER_VAR = 'qux';
+		$tpl->block("BLOCK_INNER");
+		$this->assertEquals("Out top content with foo\nInner content with baz-\nInner content with qux-\nOut bottom content with bar", trim($tpl->parse()));
+	}
 
-        public function testEscapeVar()
-        {
-                $tpl = new Template(__DIR__ . '/escape_var.html');
-                $this->assertEquals("This is an escaped var:\n{FOO}", trim($tpl->parse()));
-        }
+	public function testEscapeVar()
+	{
+		$tpl = new Template(__DIR__ . '/escape_var.html');
+		$this->assertEquals("This is an escaped var:\n{FOO}", trim($tpl->parse()));
+	}
 
 }
