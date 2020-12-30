@@ -1,4 +1,4 @@
-[![raelgc](https://circleci.com/github/raelgc/template.svg?style=svg)](https://app.circleci.com/pipelines/github/raelgc/template)
+[![raelgc](https://circleci.com/gh/raelgc/template.svg?style=svg)](https://app.circleci.com/pipelines/github/raelgc/template)
 
 Tutorial de Templates em PHP
 ========
