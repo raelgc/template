@@ -1,5 +1,6 @@
-/.project
-/.buildpath
-/.settings
-/nbproject/private/
-/nbproject/
+.project
+.buildpath
+.settings
+nbproject/
+vendor/
+composer.lock
