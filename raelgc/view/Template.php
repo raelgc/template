@@ -2,7 +2,7 @@
 namespace raelgc\view {
 
 	/**
-	 * Template Management for PHP5
+	 * Template Management for PHP >=5
 	 *
 	 * The Template engine allows to keep the HTML code in some external files
 	 * which are completely free of PHP code. This way, it's possible keep logical
@@ -15,7 +15,7 @@ namespace raelgc\view {
 	 * minor features.
 	 *
 	 * @author Rael G.C. (rael.gc@gmail.com)
-	 * @version 2.2.7
+	 * @version 2.3.1
 	 */
 	class Template {
 
