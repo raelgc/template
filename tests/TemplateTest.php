@@ -161,7 +161,6 @@ final class TemplateTest extends TestCase
 		$this->assertEquals('foobar', trim($tpl->parse()));
 	}
 
-
 	public function testObjectParse()
 	{
 		$tpl = new Template(__DIR__ . '/simple_var.html');
@@ -173,6 +172,18 @@ final class TemplateTest extends TestCase
 		$foo->setBar('foobar');
 		$tpl->FOO = $foo;
 		$this->assertEquals('Object', trim($tpl->parse()));
+	}
+
+	public function testMapBlock()
+	{
+		$tpl = new Template(__DIR__ . '/map_block.html');
+		$user = new class {
+			public $name;
+		};
+		$user->name = 'Joe';
+		$users = [$user];
+		$tpl->mapBlock('BLOCK_USERS', 'USER', $users);
+		$this->assertEquals('Name: Joe', trim($tpl->parse()));
 	}
 
 	public function testFailureSimpleObjectCaseMismatch()
