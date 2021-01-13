@@ -2,7 +2,7 @@
 namespace raelgc\view {
 
 	/**
-	 * Template Management for PHP5
+	 * Template Management for PHP >=5
 	 *
 	 * The Template engine allows to keep the HTML code in some external files
 	 * which are completely free of PHP code. This way, it's possible keep logical
@@ -15,7 +15,7 @@ namespace raelgc\view {
 	 * minor features.
 	 *
 	 * @author Rael G.C. (rael.gc@gmail.com)
-	 * @version 2.2.7
+	 * @version 2.3.1
 	 */
 	class Template {
 
@@ -466,7 +466,8 @@ namespace raelgc\view {
 		 * content.
 		 *
 		 * @param     string $block     the block name to be parsed
-		 * @param     boolean $append   true if the content must be appended
+		 * @param     boolean $append   true if the content must be appended (default)
+		 * @return    void
 		 */
 		public function block($block, $append = true) {
 			if(!in_array($block, $this->blocks)) throw new \InvalidArgumentException("block $block does not exist");
@@ -485,6 +486,22 @@ namespace raelgc\view {
 			if(!in_array($block, $this->parsed)) $this->parsed[] = $block;
 			// Cleaning children
 			if(isset($this->parents[$block])) foreach($this->parents[$block] as $child) $this->clear($child.'_value');
+		}
+
+		/**
+		 * Shortcut to iterate over a block, assign values, then parse the related block.
+		 * 
+		 * @param     string $block		the block name to be parsed
+		 * @param     string $varname	constains a varname
+		 * @param     iterable $values	any collection of values
+		 * @param     boolean $append	true if the content must be appended (default)
+		 * @return    void
+		 */
+		public function mapBlock($block, $varname, $values, $append = true) {
+			foreach($values as $v) {
+				$this->$varname = $v;
+				$this->block($block, $append);
+			}
 		}
 
 		/**
