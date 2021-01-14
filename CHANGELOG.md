@@ -1,4 +1,4 @@
-14/01/2021 - Fix #35 - Removendo chamada `each`, que ficou obsoleta no PHP 7.2
+14/01/2021 - Fix #35 - Removendo chamada `each`, que ficou obsoleta no PHP 7.2 
 15/05/2020 - Fix #38 - Se a variável é objeto, mostra o json ao invés da palavra "Object"  
 14/04/2020 - Todos os métodos `private` foram convertidos para `protected`  
 13/04/2020 - Aceitando atributos de objetos em camelCase e snake_case  
