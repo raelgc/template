@@ -179,7 +179,7 @@ final class TemplateTest extends TestCase
 		};
 		$foo->setBar('foobar');
 		$tpl->FOO = $foo;
-		$this->assertEquals('Object', trim($tpl->parse()));
+		$this->assertEquals('Object: {"bar":"foobar"}', trim($tpl->parse()));
 	}
 
 	public function testFailureSimpleObjectCaseMismatch()

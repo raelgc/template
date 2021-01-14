@@ -128,7 +128,7 @@ namespace raelgc\view {
 				$this->instances[$varname] = $value;
 				if(!isset($this->properties[$varname])) $this->properties[$varname] = array();
 				if(method_exists($value, "__toString")) $stringValue = $value->__toString();
-				else $stringValue = "Object";
+				else $stringValue = 'Object: '.json_encode($value);
 			} elseif (is_array($value)) {
 				$stringValue = implode(', ', $value);
 			}
