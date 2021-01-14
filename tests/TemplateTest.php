@@ -161,6 +161,13 @@ final class TemplateTest extends TestCase
 		$this->assertEquals('foobar', trim($tpl->parse()));
 	}
 
+	public function testArrayParse()
+	{
+		$tpl = new Template(__DIR__ . '/simple_var.html');
+		$foo = ['bar', 'baz', 'qux'];
+		$tpl->FOO = $foo;
+		$this->assertEquals('bar, baz, qux', trim($tpl->parse()));
+	}
 
 	public function testObjectParse()
 	{

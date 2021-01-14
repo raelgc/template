@@ -15,7 +15,7 @@ namespace raelgc\view {
 	 * minor features.
 	 *
 	 * @author Rael G.C. (rael.gc@gmail.com)
-	 * @version 2.2.7
+	 * @version 2.2.8
 	 */
 	class Template {
 
@@ -129,6 +129,8 @@ namespace raelgc\view {
 				if(!isset($this->properties[$varname])) $this->properties[$varname] = array();
 				if(method_exists($value, "__toString")) $stringValue = $value->__toString();
 				else $stringValue = "Object";
+			} elseif (is_array($value)) {
+				$stringValue = implode(', ', $value);
 			}
 			$this->setValue($varname, $stringValue);
 			return $value;
@@ -430,22 +432,8 @@ namespace raelgc\view {
 								$pointer = $instance->get($obj);
 							}
 						}
-						// Checking if final value is an object...
-						if(is_object($pointer)){
-							$pointer_str = method_exists($pointer, "__toString") ? $pointer->__toString() : json_encode($pointer);
-						// ... or an array
-						} elseif(is_array($pointer)){
-							$value = "";
-							for($i=0; list($key, $val) = each($pointer); $i++){
-								$value.= "$key => $val";
-								if($i<sizeof($pointer)-1) $value.= ",";
-							}
-							$pointer_str = $value;
-						} else {
-							$pointer_str = $pointer;
-						}
 						// Replacing value
-						$s = str_replace("{".$var.$properties."}", $pointer_str, $s);
+						$s = str_replace("{".$var.$properties."}", $pointer, $s);
 						// Object with modifiers
 						if(isset($this->modifiers[$var.$properties])){
 							foreach($this->modifiers[$var.$properties] as $exp){
